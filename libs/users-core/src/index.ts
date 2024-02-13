@@ -1,1 +1,1 @@
-export * from './lib/users-core.module';
+export * from './lib/ubs-users.module';

@@ -15,9 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ubs-platform/users-common": ["libs/users-common/src/index.ts"],
-      "@ubs-users/users-core": ["libs/users-core/src/index.ts"],
-      "@ubs-users/users-microservice-helper": [
+      "@ubs-platform/nest-microservice-setup-util": [
+        "libs/nest-microservice-setup-util/src/index.ts"
+      ],
+      "@ubs-platform/users-mona-common": ["libs/users-common/src/index.ts"],
+      "@ubs-platform/users-mona-core": ["libs/users-core/src/index.ts"],
+      "@ubs-platform/users-mona-microservice-helper": [
         "libs/users-microservice-helper/src/index.ts"
       ]
     }

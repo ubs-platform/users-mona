@@ -1,0 +1,53 @@
+import {
+  UBSUsersErrorConsts,
+  UserAuth,
+  UserAuthSuccess,
+} from '@lotus-web/ubs-common/users';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { UserService } from './user.service';
+import { ErrorInformations } from '@lotus-web/exceptions';
+import { Request } from 'express';
+@Injectable()
+export class AuthService {
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService
+  ) {}
+
+  async currentUserByJwtForFirstLogin(request: Request) {
+    const jwt = request.headers.authorization
+      .replace('Bearer ', '')
+      .replace('bearer ', '');
+    const jwtDecoded = this.jwtService.decode(jwt);
+    const a = jwtDecoded['userId'];
+    const ab = await this.userService.findUserAuth(a);
+    if (ab.active) {
+      return ab;
+    } else {
+      throw new UnauthorizedException();
+    }
+  }
+
+  async authenticateUser(userLogin: UserAuth) {
+    let realUser = await this.userService.findUserByLoginAndPw(userLogin);
+    // const correspond = realUser.passwordEncyripted == passwdHashed;
+    if (realUser) {
+      const payload = {
+        userId: realUser.id,
+      };
+      const token = this.jwtService.sign(payload);
+      return new UserAuthSuccess(token);
+    } else {
+      throw new ErrorInformations(
+        UBSUsersErrorConsts.AUTHENTICATION_FAIL,
+        'User is not found or password does not match'
+      );
+    }
+  }
+
+  async verifyToken(token: string) {
+    const verifed = await this.jwtService.verifyAsync(token);
+    return verifed != null;
+  }
+}
