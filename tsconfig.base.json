@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ubs-platform/users-common": ["libs/users-common/src/index.ts"],
+      "@ubs-users/users-core": ["libs/users-core/src/index.ts"],
+      "@ubs-users/users-microservice-helper": [
+        "libs/users-microservice-helper/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

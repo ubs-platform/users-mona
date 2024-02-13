@@ -1,0 +1,24 @@
+{
+  "name": "users-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/users-core/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/users-core",
+        "tsConfig": "libs/users-core/tsconfig.lib.json",
+        "packageJson": "libs/users-core/package.json",
+        "main": "libs/users-core/src/index.ts",
+        "assets": ["libs/users-core/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs users-core {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}
