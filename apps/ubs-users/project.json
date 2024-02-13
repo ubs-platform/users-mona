@@ -1,0 +1,24 @@
+{
+  "name": "ubs-users",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ubs-users/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ubs-users:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ubs-users:build:development"
+        },
+        "production": {
+          "buildTarget": "ubs-users:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
