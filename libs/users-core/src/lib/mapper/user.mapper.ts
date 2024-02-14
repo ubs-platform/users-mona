@@ -1,11 +1,11 @@
 import {
-  UserAuthBackendDTO,
   UserCreateDTO,
-  UserDTO,
-  UserFullDto,
-  UserGeneralInfoDTO,
   UserRegisterDTO,
-} from '@lotus-web/ubs-common/users';
+  UserGeneralInfoDTO,
+  UserFullDto,
+  UserDTO,
+  UserAuthBackendDTO,
+} from '@ubs-platform/users-mona-common';
 import { User } from '../domain/user.model';
 import { CryptoOp } from '../util/crypto-op';
 

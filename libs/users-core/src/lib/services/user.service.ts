@@ -1,24 +1,22 @@
-import {
-  UBSUsersErrorConsts,
-  UBSUsersErrorConsts as UsersErrorKeys,
-  UserAuth,
-  UserAuthSuccess,
-  UserDTO,
-  UserGeneralInfoDTO,
-  UserCreateDTO,
-  UserRegisterDTO,
-  UserAuthBackendDTO,
-  PasswordChangeDto,
-  UserFullDto,
-} from '@lotus-web/ubs-common/users';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../domain/user.model';
 // const Cyripto = require("crypto-promise")
-import { ErrorInformations } from '@lotus-web/exceptions';
 import { UserMapper } from '../mapper/user.mapper';
 import { CryptoOp } from '../util/crypto-op';
+import {
+  UserGeneralInfoDTO,
+  PasswordChangeDto,
+  UserCreateDTO,
+  UserRegisterDTO,
+  UserDTO,
+  UserAuth,
+  UserFullDto,
+  UserAuthBackendDTO,
+  ErrorInformations,
+  UBSUsersErrorConsts,
+} from '@ubs-platform/users-mona-common';
 
 @Injectable()
 export class UserService {
@@ -72,8 +70,8 @@ export class UserService {
 
   async changeEmail(userId: any, newEmail: string) {
     let user = await this.userModel.findById(userId);
-    user.primaryEmail = newEmail;
-    await user.save();
+    user!.primaryEmail = newEmail;
+    await user!.save();
     return UserMapper.toAuthDto(user);
   }
 
@@ -81,7 +79,7 @@ export class UserService {
     await this.assertUserInfoValid(user);
     if (!user.password) {
       throw new ErrorInformations(
-        UsersErrorKeys.EMPTY_DATA,
+        UBSUsersErrorConsts.EMPTY_DATA,
         'password-is-missing.'
       );
     }
@@ -95,7 +93,7 @@ export class UserService {
   ) {
     if (!user || !user.username || !user.primaryEmail) {
       throw new ErrorInformations(
-        UsersErrorKeys.EMPTY_DATA,
+        UBSUsersErrorConsts.EMPTY_DATA,
         'One or More Required informations are empty.'
       );
     }
@@ -103,7 +101,7 @@ export class UserService {
     const userWithUsername = await this.findByUsername(user.username);
     if (userWithUsername.length) {
       throw new ErrorInformations(
-        UsersErrorKeys.EXIST_USERNAME,
+        UBSUsersErrorConsts.EXIST_USERNAME,
         'User with that username is exist.'
       );
     }
@@ -111,7 +109,7 @@ export class UserService {
     const userWithPrimaryMail = await this.findByEmail(user.primaryEmail);
     if (userWithPrimaryMail.length) {
       throw new ErrorInformations(
-        UsersErrorKeys.EXIST_PRIMARY_MAIL,
+        UBSUsersErrorConsts.EXIST_PRIMARY_MAIL,
         'User with that primary mail is exist.'
       );
     }
@@ -155,7 +153,7 @@ export class UserService {
 
   async findByEmailExcludeUserId(
     primaryEmail: string,
-    userIdExclude
+    userIdExclude: any
   ): Promise<UserDTO[]> {
     return await this.userModel.find({
       primaryEmail: primaryEmail,
@@ -215,7 +213,7 @@ export class UserService {
     role: string
   ): Promise<boolean> {
     return (
-      (await this.userModel.count({
+      (await this.userModel.countDocuments({
         id: userId,
         roles: ['ADMIN', role],
       })) > 0
@@ -296,8 +294,8 @@ export class UserService {
     const user = await this.userModel.findById(id);
     if (user) {
       // UserMapper.userFromGeneralInfo(user, data);
-
-      return UserMapper.toGeneralDto(await user.delete());
+      await user.deleteOne();
+      return UserMapper.toGeneralDto(user);
       // UserMapper.toAuthDto(user);
     } else {
       return null;
@@ -305,7 +303,7 @@ export class UserService {
   }
 
   async initOperation() {
-    const count = await this.userModel.count();
+    const count = await this.userModel.countDocuments();
     if (count == 0) {
       const user = {
         username: 'kyle',

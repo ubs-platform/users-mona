@@ -5,7 +5,6 @@ import { UserService } from './services/user.service';
 import { UserController } from './web/user.controller';
 import { AuthController } from './web/auth.controller';
 import { AuthService } from './services/auth.service';
-import { BackendJwtUtilsExportModule } from '@lotus-web/backend-global/ubs/jwt-utils';
 import { JwtAuthLocalGuard } from './guard/jwt-local.guard';
 import { JwtLocalStrategy } from './strategies/jwt-local-strategy';
 import {
@@ -14,6 +13,7 @@ import {
 } from './domain/email-change-request.schema';
 import { EmailChangeRequestService } from './services/email-change-request.service';
 import { UserAdminController } from './web/user-admin.controller';
+import { BackendJwtUtilsExportModule } from '@ubs-platform/users-mona-microservice-helper';
 
 @Module({
   controllers: [UserController, AuthController, UserAdminController],

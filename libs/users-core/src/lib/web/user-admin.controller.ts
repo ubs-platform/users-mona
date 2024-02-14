@@ -1,10 +1,4 @@
 import {
-  UserAuth,
-  UserDTO,
-  UserFullDto,
-  UserGeneralInfoDTO,
-} from '@lotus-web/ubs-common/users';
-import {
   Body,
   Controller,
   Delete,
@@ -22,13 +16,8 @@ import {
 import { MessagePattern } from '@nestjs/microservices';
 import { UserService } from '../services/user.service';
 import { JwtAuthLocalGuard } from '../guard/jwt-local.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Multer } from 'multer';
-import { FileUploadHelperService } from '@lotus-web/backend-global/ubs/file-backend-helper';
-import { CurrentUser } from '../local-current-user-decorator';
-import { User } from '../domain/user.model';
-import { EmailChangeRequestService } from '../services/email-change-request.service';
-import { Roles, RolesGuard } from '@lotus-web/backend-global/ubs/roles';
+import { UserFullDto } from '@ubs-platform/users-mona-common';
+import { Roles, RolesGuard } from '@ubs-platform/users-mona-roles';
 @Controller('_adm_/user')
 @Roles(['ADMIN'])
 export class UserAdminController {

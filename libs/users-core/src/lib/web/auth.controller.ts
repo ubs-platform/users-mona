@@ -1,9 +1,4 @@
 import {
-  UserAuth,
-  UserAuthBackendDTO,
-  UserDTO,
-} from '@lotus-web/ubs-common/users';
-import {
   Body,
   Controller,
   Get,
@@ -16,8 +11,9 @@ import {
 import { JwtAuthLocalGuard } from '../guard/jwt-local.guard';
 import { CurrentUser } from '../local-current-user-decorator';
 import { AuthService } from '../services/auth.service';
-import { matchRoles } from '@lotus-web/backend-global/ubs/roles';
 import { Request } from 'express';
+import { UserAuth, UserAuthBackendDTO } from '@ubs-platform/users-mona-common';
+import { matchRoles } from '@ubs-platform/users-mona-roles';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}

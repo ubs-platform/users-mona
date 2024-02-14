@@ -1,4 +1,4 @@
-import { SECRET_PW } from '../util/consts';
+import { SECRET_PW } from '@ubs-platform/jwt-consts';
 import { hash, cipher, decipher } from 'crypto-promise';
 
 export class CryptoOp {

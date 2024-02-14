@@ -1,7 +1,6 @@
-import { UserDTO } from '@lotus-web/ubs-common/users';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientProxy, ClientKafka, ClientRMQ } from '@nestjs/microservices';
-import { Kafka } from '@nestjs/microservices/external/kafka.interface';
+import { UserDTO } from '@ubs-platform/users-mona-common';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()

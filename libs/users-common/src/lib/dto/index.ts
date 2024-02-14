@@ -9,3 +9,4 @@ export * from './user-minimalized.dto';
 export * from './user-create-dto';
 export * from './password-change-dto';
 export * from './user-full-dto';
+export * from './error-informations';

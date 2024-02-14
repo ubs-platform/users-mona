@@ -1,0 +1,23 @@
+{
+  "name": "jwt-consts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jwt-consts/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/jwt-consts",
+        "main": "libs/jwt-consts/src/index.ts",
+        "tsConfig": "libs/jwt-consts/tsconfig.lib.json",
+        "assets": ["libs/jwt-consts/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs jwt-consts {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}

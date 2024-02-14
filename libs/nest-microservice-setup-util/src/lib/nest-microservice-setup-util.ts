@@ -1,6 +1,6 @@
 import { Transport } from '@nestjs/microservices';
 import { randomUUID } from 'crypto';
-export const getMicroserviceConnection = () => {
+export const getMicroserviceConnection = (groupName) => {
   const type = process.env['NX_MICROSERVICE_TYPE'] as 'KAFKA' | 'TCP' | 'RMQ';
 
   let microservice: Object | null = null;
@@ -21,7 +21,7 @@ export const getMicroserviceConnection = () => {
     microservice = {
       transport: Transport.RMQ,
       options: {
-        urls: [process.env['NX_TCP_URL']],
+        urls: [process.env['NX_RMQ_URL']],
         queue: 'cats_queue',
         queueOptions: {
           durable: false,

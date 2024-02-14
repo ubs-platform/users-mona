@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { SECRET_JWT } from 'libs/backend-global/ubs/users/src/lib/util/consts';
+import { SECRET_JWT } from '@ubs-platform/jwt-consts';
 
 // @Module({
 //   controllers: [],

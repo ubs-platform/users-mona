@@ -1,12 +1,12 @@
 import {
+  ErrorInformations,
   UBSUsersErrorConsts,
   UserAuth,
   UserAuthSuccess,
-} from '@lotus-web/ubs-common/users';
+} from '@ubs-platform/users-mona-common';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from './user.service';
-import { ErrorInformations } from '@lotus-web/exceptions';
 import { Request } from 'express';
 @Injectable()
 export class AuthService {

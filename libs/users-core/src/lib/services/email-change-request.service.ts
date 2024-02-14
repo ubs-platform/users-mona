@@ -1,8 +1,3 @@
-import {
-  UBSUsersErrorConsts,
-  UserAuth,
-  UserAuthSuccess,
-} from '@lotus-web/ubs-common/users';
 import { Injectable } from '@nestjs/common';
 import { EmailChangeRequest } from '../domain/email-change-request.schema';
 import { Model } from 'mongoose';

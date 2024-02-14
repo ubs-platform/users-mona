@@ -1,12 +1,11 @@
-import { UserDTO } from '@lotus-web/ubs-common/users';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PassportStrategy } from '@nestjs/passport';
-import { User } from 'libs/backend-global/ubs/users/src/lib/domain/user.model';
-import { SECRET_JWT } from 'libs/backend-global/ubs/users/src/lib/util/consts';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { firstValueFrom } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { SECRET_JWT } from '@ubs-platform/jwt-consts';
+import { UserDTO } from '@ubs-platform/users-mona-common';
 
 @Injectable()
 export class JwtLocalStrategy extends PassportStrategy(Strategy) {
