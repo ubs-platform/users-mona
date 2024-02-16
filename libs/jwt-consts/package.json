@@ -1,6 +1,7 @@
 {
   "name": "@ubs-platform/jwt-consts",
   "version": "0.0.1",
+  "private": false,
   "dependencies": {
     "tslib": "^2.3.0"
   },
