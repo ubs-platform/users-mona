@@ -8,11 +8,11 @@ import { UbsUsersCoreModule } from '@ubs-platform/users-mona-core';
   imports: [
     UbsUsersCoreModule,
     MongooseModule.forRoot(
-      `mongodb://admin:admin@${
-        process.env.NX_MONGO_URL || 'localhost'
-      }/?authMechanism=DEFAULT`,
+      `mongodb://${process.env.NX_MONGO_USERNAME}:${
+        process.env.NX_MONGO_PASSWORD
+      }@${process.env.NX_MONGO_URL || 'localhost'}/?authMechanism=DEFAULT`,
       {
-        dbName: 'ubs_users',
+        dbName: process.env.NX_MONGO_DBNAME || 'ubs_users',
       }
     ),
   ],
