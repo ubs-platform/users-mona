@@ -5,7 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { firstValueFrom } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { SECRET_JWT } from '@ubs-platform/jwt-consts';
-import { UserDTO } from '@ubs-platform/users-mona-common';
+import { UserDTO } from '@ubs-platform/users-common';
 
 @Injectable()
 export class JwtLocalStrategy extends PassportStrategy(Strategy) {

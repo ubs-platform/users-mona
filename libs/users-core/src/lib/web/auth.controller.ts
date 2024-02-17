@@ -12,7 +12,7 @@ import { JwtAuthLocalGuard } from '../guard/jwt-local.guard';
 import { CurrentUser } from '../local-current-user-decorator';
 import { AuthService } from '../services/auth.service';
 import { Request } from 'express';
-import { UserAuth, UserAuthBackendDTO } from '@ubs-platform/users-mona-common';
+import { UserAuth, UserAuthBackendDTO } from '@ubs-platform/users-common';
 import { matchRoles } from '@ubs-platform/users-mona-roles';
 @Controller('auth')
 export class AuthController {

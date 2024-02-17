@@ -16,7 +16,7 @@ import {
   UserAuthBackendDTO,
   ErrorInformations,
   UBSUsersErrorConsts,
-} from '@ubs-platform/users-mona-common';
+} from '@ubs-platform/users-common';
 
 @Injectable()
 export class UserService {

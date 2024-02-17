@@ -2,7 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Roles } from '../decorator/roles.decorator';
 import { matchRoles } from '../match-role';
-import { UserAuthBackendDTO } from '@ubs-platform/users-mona-common';
+import { UserAuthBackendDTO } from '@ubs-platform/users-common';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

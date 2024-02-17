@@ -22,7 +22,7 @@ import {
   UserGeneralInfoDTO,
   UserDTO,
   UserAuthBackendDTO,
-} from '@ubs-platform/users-mona-common';
+} from '@ubs-platform/users-common';
 @Controller('user')
 export class UserController {
   constructor(

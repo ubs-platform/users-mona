@@ -5,7 +5,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { firstValueFrom } from 'rxjs';
 import { UserService } from '../service/user.service';
-import { UserDTO } from '@ubs-platform/users-mona-common';
+import { UserDTO } from '@ubs-platform/users-common';
 import { SECRET_JWT } from '@ubs-platform/jwt-consts';
 
 @Injectable({})

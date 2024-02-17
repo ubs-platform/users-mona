@@ -16,7 +16,7 @@ import {
 import { MessagePattern } from '@nestjs/microservices';
 import { UserService } from '../services/user.service';
 import { JwtAuthLocalGuard } from '../guard/jwt-local.guard';
-import { UserFullDto } from '@ubs-platform/users-mona-common';
+import { UserFullDto } from '@ubs-platform/users-common';
 import { Roles, RolesGuard } from '@ubs-platform/users-mona-roles';
 @Controller('_adm_/user')
 @Roles(['ADMIN'])

@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@ubs-platform/jwt-consts": ["libs/jwt-consts/src/index.ts"],
-      "@ubs-platform/users-mona-common": ["libs/users-common/src/index.ts"],
       "@ubs-platform/users-mona-core": ["libs/users-core/src/index.ts"],
       "@ubs-platform/users-mona-roles": ["libs/roles/src/index.ts"]
     }
