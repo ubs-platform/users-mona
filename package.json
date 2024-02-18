@@ -17,6 +17,7 @@
     "@ubs-platform/nest-microservice-setup-util": "1.0.6",
     "@ubs-platform/users-common": "1.0.8",
     "@ubs-platform/users-mona-roles": "1.0.1",
+    "@ubs-platform/users-mona-microservice-helper": "1.0.1",
     "axios": "^1.6.0",
     "crypto-promise": "^2.1.0",
     "kafkajs": "^2.2.4",

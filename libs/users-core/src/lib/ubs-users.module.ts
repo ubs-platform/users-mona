@@ -13,7 +13,7 @@ import {
 } from './domain/email-change-request.schema';
 import { EmailChangeRequestService } from './services/email-change-request.service';
 import { UserAdminController } from './web/user-admin.controller';
-import { BackendJwtUtilsExportModule } from '@ubs-platform/';
+import { BackendJwtUtilsExportModule } from '@ubs-platform/users-mona-microservice-helper';
 
 @Module({
   controllers: [UserController, AuthController, UserAdminController],
