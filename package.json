@@ -1,12 +1,11 @@
 {
-  "name": "@ubs-users/source",
-  "version": "0.0.0",
+  "name": "@ubs-platform/users-mona",
+  "version": "1.0.9",
   "license": "MIT",
   "scripts": {},
   "publishConfig": {
     "access": "public"
   },
-  "private": false,
   "dependencies": {
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
