@@ -230,7 +230,7 @@ export class UserService {
 
   async findUserAuthBackend(id: any): Promise<UserAuthBackendDTO | null> {
     const u = await this.userModel.findById(id);
-    if (u.active && !u.suspended) {
+    if (u && u.active && !u.suspended) {
       return UserMapper.toAuthBackendDto(u);
     } else {
       return null;
