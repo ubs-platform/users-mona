@@ -1,6 +1,6 @@
 {
   "name": "@ubs-platform/users-mona",
-  "version": "1.0.92",
+  "version": "1.1.1",
   "license": "MIT",
   "scripts": {},
   "publishConfig": {
@@ -14,10 +14,10 @@
     "@nestjs/mongoose": "^10.0.4",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.2",
-    "@ubs-platform/nest-microservice-setup-util": "1.0.6",
-    "@ubs-platform/users-common": "1.0.8",
-    "@ubs-platform/users-mona-roles": "1.0.1",
-    "@ubs-platform/users-mona-microservice-helper": "1.0.2",
+    "@ubs-platform/nest-microservice-setup-util": "1.1.1",
+    "@ubs-platform/users-common": "1.1.1",
+    "@ubs-platform/users-mona-roles": "1.1.1",
+    "@ubs-platform/users-mona-microservice-helper": "1.1.1",
     "axios": "^1.6.0",
     "crypto-promise": "^2.1.0",
     "kafkajs": "^2.2.4",
