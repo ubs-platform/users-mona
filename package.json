@@ -2,7 +2,12 @@
   "name": "@ubs-platform/users-mona",
   "version": "1.1.1",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "tsc .",
+    "build-publish": "npm run build-publsih:npm && npm run build-publsih:docker",
+    "build-publish:npm": "npm run build & npm publish",
+    "build-publish:docker": "docker build --tag hcangunduz/ubs-users . && docker push hcangunduz/ubs-users:latest"
+  },
   "publishConfig": {
     "access": "public"
   },
