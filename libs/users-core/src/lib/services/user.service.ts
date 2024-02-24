@@ -306,11 +306,12 @@ export class UserService {
     const count = await this.userModel.countDocuments();
     if (count == 0) {
       const user = {
-        username: 'prometheus',
-        password: 'prometheus',
-        primaryEmail: 'main@localhost',
-        name: 'Prometheus',
-        surname: 'Kentum',
+        username: process.env['UBS_USERS_INITIAL_USERNAME'] || 'prometheus',
+        password: process.env['UBS_USERS_INITIAL_PW'] || 'prometheus',
+        primaryEmail:
+          process.env['UBS_USERS_INITIAL_EMAIL'] || 'main@localhost',
+        name: process.env['UBS_USERS_INITIAL_NAME'] || 'Prometheus',
+        surname: process.env['UBS_USERS_INITIAL_SURNAME'] || 'Kentum',
         active: true,
         roles: ['ADMIN'],
       } as UserCreateDTO;
