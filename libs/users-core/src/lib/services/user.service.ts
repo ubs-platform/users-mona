@@ -306,21 +306,28 @@ export class UserService {
     const count = await this.userModel.countDocuments();
     if (count == 0) {
       const user = {
-        username: 'kyle',
-        password: 'kyle',
+        username: 'prometheus',
+        password: 'prometheus',
         primaryEmail: 'main@localhost',
-        name: 'Kyle',
-        surname: 'Broflovski',
+        name: 'Prometheus',
+        surname: 'Kentum',
         active: true,
         roles: ['ADMIN'],
       } as UserCreateDTO;
       await this.saveNewUser(user);
-      console.warn(
-        'We suppose that you are Kip Drordy, you are so alone and have social anxiety. So admin user "Kyle Broflovski" has been added for emotional support.\n',
-        'username: "kyle"\n',
-        'password: "kyle"',
-        "Don't forget to change these informations before production."
-      );
+      // that will stay as an easter egg
+      if (user.name == 'Kyle' && user.surname == 'Broflovski') {
+        console.warn(
+          'We suppose that you are Kip Drordy, you are so alone and have social anxiety. So admin user "Kyle Broflovski" has been added for emotional support. Please see the following output\n',
+          "Don't forget to change these informations before production."
+        );
+      } else {
+        console.warn(
+          'Initial user has been added. Please see the following output',
+          "Don't forget to change these informations before production."
+        );
+      }
+      console.info(user);
       // }
     }
   }
