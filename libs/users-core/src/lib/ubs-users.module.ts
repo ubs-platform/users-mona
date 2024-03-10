@@ -19,8 +19,8 @@ import { BackendJwtUtilsExportModule } from '@ubs-platform/users-mona-microservi
   controllers: [UserController, AuthController, UserAdminController],
 
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
       { name: EmailChangeRequest.name, schema: EmailChangeRequestSchema },
     ]),
     ...BackendJwtUtilsExportModule,
