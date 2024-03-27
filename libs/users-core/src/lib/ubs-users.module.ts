@@ -14,16 +14,36 @@ import {
 import { EmailChangeRequestService } from './services/email-change-request.service';
 import { UserAdminController } from './web/user-admin.controller';
 import { BackendJwtUtilsExportModule } from '@ubs-platform/users-mona-microservice-helper';
+import {
+  PwResetRequest,
+  PwResetRequestSchema,
+} from './domain/pw-reset-request.schema';
+import { PasswordResetService } from './services/password-reset.service';
+import { ResetPasswordController } from './web/password-reset.controller';
+import { ClientsModule } from '@nestjs/microservices';
+import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
 
 @Module({
-  controllers: [UserController, AuthController, UserAdminController],
+  controllers: [
+    UserController,
+    AuthController,
+    UserAdminController,
+    ResetPasswordController,
+  ],
 
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: EmailChangeRequest.name, schema: EmailChangeRequestSchema },
+      { name: PwResetRequest.name, schema: PwResetRequestSchema },
     ]),
     ...BackendJwtUtilsExportModule,
+    ClientsModule.register([
+      {
+        name: 'KAFKA_CLIENT',
+        ...getMicroserviceConnection(''),
+      } as any,
+    ]),
   ],
   providers: [
     UserService,
@@ -31,6 +51,7 @@ import { BackendJwtUtilsExportModule } from '@ubs-platform/users-mona-microservi
     EmailChangeRequestService,
     JwtAuthLocalGuard,
     JwtLocalStrategy,
+    PasswordResetService,
   ],
   exports: [],
 })

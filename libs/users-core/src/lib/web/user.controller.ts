@@ -100,7 +100,7 @@ export class UserController {
     }
   ) {
     try {
-      await this.userService.changePassword(currentUser.id, pwChange);
+      await this.userService.changePasswordLogged(currentUser.id, pwChange);
     } catch (error) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }

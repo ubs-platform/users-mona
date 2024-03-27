@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { User } from '../domain/user.model';
 // const Cyripto = require("crypto-promise")
 import { UserMapper } from '../mapper/user.mapper';
@@ -40,7 +40,7 @@ export class UserService {
     }
   }
 
-  async changePassword(id: string, pwChange: PasswordChangeDto) {
+  async changePasswordLogged(id: string, pwChange: PasswordChangeDto) {
     const u = await this.userModel.findById(id);
 
     if (u) {
@@ -54,6 +54,18 @@ export class UserService {
         u.save();
         return UserMapper.toAuthDto(u);
       }
+    } else {
+      throw 'not-found';
+    }
+  }
+
+  async changePasswordForgor(id: string, newPassword: string) {
+    const u = await this.userModel.findById(id);
+
+    if (u) {
+      u.passwordEncyripted = await CryptoOp.encrypt(newPassword);
+      u.save();
+      return UserMapper.toAuthDto(u);
     } else {
       throw 'not-found';
     }
@@ -253,6 +265,10 @@ export class UserService {
     await UserMapper.userFullFromUser(user, data);
     await user.save();
     UserMapper.toAuthDto(user);
+  }
+
+  async findById(id: ObjectId | string) {
+    return UserMapper.toFullDto(await this.userModel.findById(id));
   }
 
   async editUserFullInformation(data: UserFullDto) {
