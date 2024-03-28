@@ -3,7 +3,7 @@
   "version": "1.1.2",
   "license": "MIT",
   "scripts": {
-    "start": "npx nx run ubs-users:serve",
+    "start": "npx nx run ubs-users:serve --skip-nx-cache",
     "build": "npx nx run ubs-users:build",
     "build-publish": "npm run build-publish:npm && npm run build-publish:docker",
     "build-publish:npm": "npm run build & npm publish",
