@@ -14,7 +14,7 @@ export class PasswordResetService {
     private uservice: UserService,
     @InjectModel(PwResetRequest.name)
     private passwordResetModel: Model<PwResetRequest>,
-    @Inject('USER_CLIENT')
+    @Inject('KAFKA_CLIENT')
     private eventClient: ClientKafka
   ) {
     this.eventClient.subscribeToResponseOf('email-reset.reply');
@@ -51,18 +51,17 @@ export class PasswordResetService {
       ech.userId = u.id;
       ech = await ech.save();
       // return { approveId: ech.id };
-      this.eventClient
-        .send('email-reset', {
-          templateName: 'ubs-pwreset',
-          to: u.primaryEmail,
-          subject: 'Reset password on Lotus',
-          specialVariables: {
-            userfirstname: u.name,
-            userlastname: u.surname,
-            link: `http://localhost:4200/users/password-reset/${ech.id}`,
-          },
-        } as EmailDto)
-        .toPromise();
+
+      this.eventClient.emit('email-reset', {
+        templateName: 'ubs-pwreset',
+        to: u.primaryEmail,
+        subject: 'Reset password on Lotus',
+        specialVariables: {
+          userfirstname: u.name,
+          userlastname: u.surname,
+          link: `http://localhost:4200/password-reset/resolve/${ech.id}`,
+        },
+      } as EmailDto);
     }
   }
 
