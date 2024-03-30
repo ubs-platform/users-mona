@@ -81,7 +81,7 @@ export class PasswordResetService {
     this.eventClient.emit('email-reset', {
       templateName: 'ubs-pwreset-changed',
       to: u.primaryEmail,
-      subject: 'Your password has been changed | Tetakent Information Service',
+      subject: 'Your password has been changed',
       specialVariables: {
         userfirstname: u.name,
         userlastname: u.surname,
@@ -93,7 +93,7 @@ export class PasswordResetService {
     this.eventClient.emit('email-reset', {
       templateName: 'ubs-pwreset',
       to: u.primaryEmail,
-      subject: 'Password Reset | Tetakent Information Service',
+      subject: 'Password Reset',
       specialVariables: {
         userfirstname: u.name,
         userlastname: u.surname,
