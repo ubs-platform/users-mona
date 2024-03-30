@@ -106,6 +106,11 @@ export class UserController {
     }
   }
 
+  @Post('activate/:key')
+  public async activate(@Param() { key }: { key: string }) {
+    await this.userService.activateUserByKey(key);
+  }
+
   @MessagePattern('file-upload-PROFILE_PHOTO')
   async changeProfilePhoto(data: { userId: any }) {
     console.info('test');

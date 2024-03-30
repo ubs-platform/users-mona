@@ -66,6 +66,12 @@ export class User {
 
   @Prop({})
   suspendReason: string = '';
+
+  @Prop({ required: false })
+  activationKey: string;
+
+  @Prop({ required: false })
+  activationExpireDate: Date;
 }
 
 export type UserDoc = User & Document;

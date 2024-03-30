@@ -25,7 +25,8 @@ export class UserMapper {
   }
 
   static async registerFrom(entity: User, dto: UserRegisterDTO): Promise<User> {
-    entity.active = true;
+    // entity.active = true;
+
     entity.username = dto.username;
     entity.passwordEncyripted = await CryptoOp.encrypt(dto.password);
     entity.name = dto.name;

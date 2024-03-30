@@ -19,6 +19,7 @@ import {
 } from '@ubs-platform/users-common';
 import { ClientKafka } from '@nestjs/microservices';
 import { EmailDto } from '../dto/email.dto';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,14 @@ export class UserService {
     @Inject('KAFKA_CLIENT') private client: ClientKafka
   ) {
     this.initOperation();
+  }
+
+  async activateUserByKey(key: string) {
+    const u = await this.userModel.findOne({ activationKey: key }).exec();
+    u.active = true;
+    u.activationKey = null;
+    u.activationExpireDate = null;
+    await u.save();
   }
 
   async fetchAllUsers() {
@@ -89,6 +98,19 @@ export class UserService {
       },
     } as EmailDto);
   }
+
+  async sendRegisteredEmail(u: User) {
+    this.client.emit('email-reset', {
+      templateName: 'ubs-pwreset-changed',
+      to: u.primaryEmail,
+      subject: 'Your password has been changed',
+      specialVariables: {
+        userfirstname: u.name,
+        userlastname: u.surname,
+      },
+    } as EmailDto);
+  }
+
   async saveNewUser(user: UserCreateDTO & { id?: string }) {
     await this.assertUserInfoValid(user);
     let u = new this.userModel();
@@ -115,7 +137,20 @@ export class UserService {
     }
     const u = new this.userModel();
     await UserMapper.registerFrom(u, user);
+    u.activationKey = randomUUID();
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+    u.activationExpireDate = date;
     await u.save();
+  }
+
+  async enableUser(activationKey: string) {
+    if (activationKey) {
+      const u = await this.userModel.findOne({ activationKey });
+      u.active = true;
+      u.activationKey = null;
+      u.save();
+    }
   }
 
   private async assertUserInfoValid(
