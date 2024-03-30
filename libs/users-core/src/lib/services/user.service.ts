@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { User } from '../domain/user.model';
@@ -17,10 +17,15 @@ import {
   ErrorInformations,
   UBSUsersErrorConsts,
 } from '@ubs-platform/users-common';
+import { ClientKafka } from '@nestjs/microservices';
+import { EmailDto } from '../dto/email.dto';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @Inject('KAFKA_CLIENT') private client: ClientKafka
+  ) {
     this.initOperation();
   }
 
@@ -51,7 +56,8 @@ export class UserService {
         throw 'password-does-not-match';
       } else {
         u.passwordEncyripted = await CryptoOp.encrypt(pwChange.newPassword);
-        u.save();
+        await u.save();
+        await this.sendPasswordChangedMail(u);
         return UserMapper.toAuthDto(u);
       }
     } else {
@@ -65,12 +71,24 @@ export class UserService {
     if (u) {
       u.passwordEncyripted = await CryptoOp.encrypt(newPassword);
       await u.save();
+      await this.sendPasswordChangedMail(u);
       return UserMapper.toAuthDto(u);
     } else {
       throw 'not-found';
     }
   }
 
+  async sendPasswordChangedMail(u: User) {
+    this.client.emit('email-reset', {
+      templateName: 'ubs-pwreset-changed',
+      to: u.primaryEmail,
+      subject: 'Your password has been changed',
+      specialVariables: {
+        userfirstname: u.name,
+        userlastname: u.surname,
+      },
+    } as EmailDto);
+  }
   async saveNewUser(user: UserCreateDTO & { id?: string }) {
     await this.assertUserInfoValid(user);
     let u = new this.userModel();

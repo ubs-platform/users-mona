@@ -1,4 +1,4 @@
-import { Body, Controller, Headers, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
 import { PasswordResetService } from '../services/password-reset.service';
 
 @Controller('reset-password')
@@ -23,5 +23,10 @@ export class ResetPasswordController {
   ) {
     console.info(id);
     await this.passwordResetService.approve(id, newPassword);
+  }
+
+  @Get(':id')
+  async hasPasswrodResetRequest(@Param() { id }: { id: any }) {
+    return await this.passwordResetService.has(id);
   }
 }

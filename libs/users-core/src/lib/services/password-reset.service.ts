@@ -22,6 +22,17 @@ export class PasswordResetService {
     this.eventClient.subscribeToResponseOf('email-reset.reply');
   }
 
+  async has(id: any) {
+    return (
+      (await this.passwordResetModel.countDocuments({
+        _id: id,
+        expireAfter: {
+          $gt: new Date(),
+        },
+      })) > 0
+    );
+  }
+
   public async insertNewRequest(username: string, origin?: string) {
     const EXPIRE_AFTER = 120;
 
@@ -34,6 +45,7 @@ export class PasswordResetService {
         $or: [
           {
             expireAfter: {
+              //removing older requests
               $lt: new Date(),
             },
           },
@@ -62,31 +74,20 @@ export class PasswordResetService {
   public async approve(pwResetId: string, newPassword: string) {
     const exist = await this.passwordResetModel.findOne({
       _id: pwResetId,
+      expireAfter: {
+        // checking is not past
+        $gt: new Date(),
+      },
     });
     console.info('Current email change refresh', exist);
     if (exist) {
-      if (new Date() > exist.expireAfter) {
-        throw new HttpException('Request expired', 400);
-      }
       console.info(exist.userId);
       await this.uservice.changePasswordForgor(exist.userId, newPassword);
-      await this.sendPasswordChangedMail(exist.userId);
+      await this.passwordResetModel.deleteOne({ _id: exist.id });
+      // await this.sendPasswordChangedMail(exist.userId);
     } else {
       throw new HttpException('No records found', 404);
     }
-  }
-
-  async sendPasswordChangedMail(userId: string) {
-    const u = await this.uservice.findById(userId);
-    this.eventClient.emit('email-reset', {
-      templateName: 'ubs-pwreset-changed',
-      to: u.primaryEmail,
-      subject: 'Your password has been changed',
-      specialVariables: {
-        userfirstname: u.name,
-        userlastname: u.surname,
-      },
-    } as EmailDto);
   }
 
   private sendChangePwLink(u: UserDTO, origin: string, echId: string) {
