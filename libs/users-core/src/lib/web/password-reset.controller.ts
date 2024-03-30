@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Headers, Param, Post } from '@nestjs/common';
 import { PasswordResetService } from '../services/password-reset.service';
 
 @Controller('reset-password')
@@ -6,15 +6,22 @@ export class ResetPasswordController {
   constructor(public passwordResetService: PasswordResetService) {}
 
   @Post()
-  initPwReset(@Body() { username }: { username: string }) {
-    this.passwordResetService.insertNewRequest(username);
+  async initPwReset(
+    @Body() { username }: { username: string },
+    @Headers() headers: any
+  ) {
+    await this.passwordResetService.insertNewRequest(
+      username,
+      headers?.['origin']
+    );
   }
 
   @Post(':id')
-  pwResetResolve(
+  async pwResetResolve(
     @Param() { id }: { id: any },
     @Body() { newPassword }: { newPassword: string }
   ) {
-    this.passwordResetService.approve(id, newPassword);
+    console.info(id);
+    await this.passwordResetService.approve(id, newPassword);
   }
 }

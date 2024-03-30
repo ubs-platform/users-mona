@@ -64,7 +64,7 @@ export class UserService {
 
     if (u) {
       u.passwordEncyripted = await CryptoOp.encrypt(newPassword);
-      u.save();
+      await u.save();
       return UserMapper.toAuthDto(u);
     } else {
       throw 'not-found';

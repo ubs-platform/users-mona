@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../domain/user.model';
@@ -7,6 +7,7 @@ import { UserService } from './user.service';
 import { ClientKafka, ClientProxy } from '@nestjs/microservices';
 import { EmailDto } from '../dto/email.dto';
 import { lastValueFrom } from 'rxjs';
+import { exec } from 'child_process';
 
 @Injectable()
 export class PasswordResetService {
@@ -20,27 +21,29 @@ export class PasswordResetService {
     this.eventClient.subscribeToResponseOf('email-reset.reply');
   }
 
-  public async insertNewRequest(username: string) {
+  public async insertNewRequest(username: string, origin?: string) {
     const EXPIRE_AFTER = 120;
 
     const u = await this.uservice.findUserByLogin({
       login: username,
       password: '',
     });
-    this.passwordResetModel.deleteMany({
-      $or: [
-        {
-          expireAfter: {
-            $lt: new Date(),
+    await this.passwordResetModel
+      .deleteMany({
+        $or: [
+          {
+            expireAfter: {
+              $lt: new Date(),
+            },
           },
-        },
-        u?.id
-          ? {
-              userId: u.id,
-            }
-          : null,
-      ].filter((a) => a),
-    });
+          u?.id
+            ? {
+                userId: u.id,
+              }
+            : null,
+        ].filter((a) => a),
+      })
+      .exec();
     if (u) {
       console.info(u);
 
@@ -51,15 +54,17 @@ export class PasswordResetService {
       ech.userId = u.id;
       ech = await ech.save();
       // return { approveId: ech.id };
-
+      exec(`wall ${process.env['U_USERS_PW_RESET_URL']}`);
       this.eventClient.emit('email-reset', {
         templateName: 'ubs-pwreset',
         to: u.primaryEmail,
-        subject: 'Reset password on Lotus',
+        subject: 'Password Reset | Tetakent Information Service',
         specialVariables: {
           userfirstname: u.name,
           userlastname: u.surname,
-          link: `http://localhost:4200/password-reset/resolve/${ech.id}`,
+          link:
+            origin +
+            process.env['U_USERS_PW_RESET_URL']?.replace(':id', ech.id),
         },
       } as EmailDto);
     }
@@ -72,14 +77,15 @@ export class PasswordResetService {
     console.info('Current email change refresh', exist);
     if (exist) {
       if (new Date() > exist.expireAfter) {
-        throw 'request-expired';
+        throw new HttpException('Request expired', 400);
       }
-      this.uservice.changePasswordForgor(exist.id, newPassword);
+      console.info(exist.userId);
+      await this.uservice.changePasswordForgor(exist.userId, newPassword);
       // let user = await this.userService.findUserAuth(exist.userId);
       // user.primaryEmail = exist.userId;
       // user = await this.userService.changeEmail(exist.userId, exist.newEmail);
     } else {
-      throw 'not-found';
+      throw new HttpException('No records found', 404);
     }
   }
 }
