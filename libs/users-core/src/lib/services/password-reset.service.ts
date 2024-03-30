@@ -8,6 +8,7 @@ import { ClientKafka, ClientProxy } from '@nestjs/microservices';
 import { EmailDto } from '../dto/email.dto';
 import { lastValueFrom } from 'rxjs';
 import { exec } from 'child_process';
+import { UserDTO } from '@ubs-platform/users-common';
 
 @Injectable()
 export class PasswordResetService {
@@ -54,19 +55,7 @@ export class PasswordResetService {
       ech.userId = u.id;
       ech = await ech.save();
       // return { approveId: ech.id };
-      exec(`wall ${process.env['U_USERS_PW_RESET_URL']}`);
-      this.eventClient.emit('email-reset', {
-        templateName: 'ubs-pwreset',
-        to: u.primaryEmail,
-        subject: 'Password Reset | Tetakent Information Service',
-        specialVariables: {
-          userfirstname: u.name,
-          userlastname: u.surname,
-          link:
-            origin +
-            process.env['U_USERS_PW_RESET_URL']?.replace(':id', ech.id),
-        },
-      } as EmailDto);
+      this.sendChangePwLink(u, origin, ech._id);
     }
   }
 
@@ -81,11 +70,36 @@ export class PasswordResetService {
       }
       console.info(exist.userId);
       await this.uservice.changePasswordForgor(exist.userId, newPassword);
-      // let user = await this.userService.findUserAuth(exist.userId);
-      // user.primaryEmail = exist.userId;
-      // user = await this.userService.changeEmail(exist.userId, exist.newEmail);
+      await this.sendPasswordChangedMail(exist.userId);
     } else {
       throw new HttpException('No records found', 404);
     }
+  }
+
+  async sendPasswordChangedMail(userId: string) {
+    const u = await this.uservice.findById(userId);
+    this.eventClient.emit('email-reset', {
+      templateName: 'ubs-pwreset-changed',
+      to: u.primaryEmail,
+      subject: 'Your password has been changed | Tetakent Information Service',
+      specialVariables: {
+        userfirstname: u.name,
+        userlastname: u.surname,
+      },
+    } as EmailDto);
+  }
+
+  private sendChangePwLink(u: UserDTO, origin: string, echId: string) {
+    this.eventClient.emit('email-reset', {
+      templateName: 'ubs-pwreset',
+      to: u.primaryEmail,
+      subject: 'Password Reset | Tetakent Information Service',
+      specialVariables: {
+        userfirstname: u.name,
+        userlastname: u.surname,
+        link:
+          origin + process.env['U_USERS_PW_RESET_URL']?.replace(':id', echId),
+      },
+    } as EmailDto);
   }
 }
