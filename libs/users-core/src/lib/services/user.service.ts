@@ -88,32 +88,45 @@ export class UserService {
   }
 
   async sendPasswordChangedMail(u: User) {
-    this.client.emit('email-reset', {
-      templateName: 'ubs-pwreset-changed',
-      to: u.primaryEmail,
-      subject: 'Your password has been changed',
-      specialVariables: {
-        userfirstname: u.name,
-        userlastname: u.surname,
-      },
-    } as EmailDto);
+    this.sendEmail(u, 'Your password has been changed', 'ubs-pwreset-changed');
   }
 
-  async sendRegisteredEmail(u: User) {
+  async sendRegisteredEmail(u: User, key: string) {
+    const link = process.env['U_USERS_REGISTERED_USER_VALIDATING_URL'].replace(
+      ':key',
+      key
+    );
+    this.sendEmail(
+      u,
+      'Welcome to Tetakent Applications',
+      'ubs-user-registered',
+      {
+        link,
+      }
+    );
+  }
+
+  async sendEmail(
+    u: User,
+    subject: string,
+    templateName: string,
+    specialVariables: { [key: string]: any } = {}
+  ) {
     this.client.emit('email-reset', {
-      templateName: 'ubs-pwreset-changed',
+      templateName: templateName,
       to: u.primaryEmail,
-      subject: 'Your password has been changed',
+      subject: subject,
       specialVariables: {
         userfirstname: u.name,
         userlastname: u.surname,
+        ...specialVariables,
       },
     } as EmailDto);
   }
 
   async saveNewUser(user: UserCreateDTO & { id?: string }) {
     await this.assertUserInfoValid(user);
-    let u = new this.userModel();
+    const u = new this.userModel();
     await UserMapper.createFrom(u, user);
     await u.save();
 
@@ -121,7 +134,7 @@ export class UserService {
   }
 
   async changeEmail(userId: any, newEmail: string) {
-    let user = await this.userModel.findById(userId);
+    const user = await this.userModel.findById(userId);
     user!.primaryEmail = newEmail;
     await user!.save();
     return UserMapper.toAuthDto(user);
@@ -142,6 +155,7 @@ export class UserService {
     date.setDate(date.getDate() + 7);
     u.activationExpireDate = date;
     await u.save();
+    await this.sendRegisteredEmail(u, u.activationKey);
   }
 
   async enableUser(activationKey: string) {
