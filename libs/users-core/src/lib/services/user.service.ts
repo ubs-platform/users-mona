@@ -91,11 +91,13 @@ export class UserService {
     this.sendEmail(u, 'Your password has been changed', 'ubs-pwreset-changed');
   }
 
-  async sendRegisteredEmail(u: User, key: string) {
-    const link = process.env['U_USERS_REGISTERED_USER_VALIDATING_URL'].replace(
-      ':key',
-      key
-    );
+  async sendRegisteredEmail(u: User, key: string, origin = '') {
+    const link =
+      origin +
+      process.env['U_USERS_REGISTERED_USER_VALIDATING_URL'].replace(
+        ':key',
+        key
+      );
     this.sendEmail(
       u,
       'Welcome to Tetakent Applications',
@@ -140,7 +142,7 @@ export class UserService {
     return UserMapper.toAuthDto(user);
   }
 
-  async registerUser(user: UserRegisterDTO) {
+  async registerUser(user: UserRegisterDTO, origin?: string) {
     await this.assertUserInfoValid(user);
     if (!user.password) {
       throw new ErrorInformations(
@@ -155,7 +157,7 @@ export class UserService {
     date.setDate(date.getDate() + 7);
     u.activationExpireDate = date;
     await u.save();
-    await this.sendRegisteredEmail(u, u.activationKey);
+    await this.sendRegisteredEmail(u, u.activationKey, origin);
   }
 
   async enableUser(activationKey: string) {

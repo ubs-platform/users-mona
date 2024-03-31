@@ -10,6 +10,7 @@ import {
   Put,
   UploadedFile,
   UseGuards,
+  Headers,
   UseInterceptors,
 } from '@nestjs/common';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
@@ -31,9 +32,9 @@ export class UserController {
   ) {}
 
   @Post()
-  async registerUser(@Body() user: UserRegisterDTO) {
+  async registerUser(@Body() user: UserRegisterDTO, @Headers() headers: any) {
     try {
-      await this.userService.registerUser(user);
+      await this.userService.registerUser(user, headers?.['origin']);
     } catch (error) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }
