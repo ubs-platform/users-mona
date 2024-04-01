@@ -20,12 +20,14 @@ import {
 import { ClientKafka } from '@nestjs/microservices';
 import { EmailDto } from '../dto/email.dto';
 import { randomUUID } from 'crypto';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    @Inject('KAFKA_CLIENT') private client: ClientKafka
+    // @Inject('KAFKA_CLIENT') private client: ClientKafka,
+    private emailService: EmailService
   ) {
     this.initOperation();
   }
@@ -114,7 +116,7 @@ export class UserService {
     templateName: string,
     specialVariables: { [key: string]: any } = {}
   ) {
-    this.client.emit('email-reset', {
+    this.emailService.sendEmail({
       templateName: templateName,
       to: u.primaryEmail,
       subject: subject,
@@ -348,11 +350,6 @@ export class UserService {
     }
     const user = await this.userModel.findById(data._id);
     console.info(user);
-    // if (user.roles.includes('ADMIN')) {
-    //   data.roles = ['ADMIN'];
-    //   data.active = true;
-    //   data.suspended = false;
-    // }
     if (user) {
       await UserMapper.userFullFromUser(user, data);
       await user.save();

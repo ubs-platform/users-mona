@@ -9,6 +9,7 @@ import { EmailDto } from '../dto/email.dto';
 import { lastValueFrom } from 'rxjs';
 import { exec } from 'child_process';
 import { UserDTO } from '@ubs-platform/users-common';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class PasswordResetService {
@@ -16,10 +17,9 @@ export class PasswordResetService {
     private uservice: UserService,
     @InjectModel(PwResetRequest.name)
     private passwordResetModel: Model<PwResetRequest>,
-    @Inject('KAFKA_CLIENT')
-    private eventClient: ClientKafka
+    private emailService: EmailService
   ) {
-    this.eventClient.subscribeToResponseOf('email-reset.reply');
+    // this.eventClient.subscribeToResponseOf('email-reset.reply');
   }
 
   async has(id: any) {
@@ -91,7 +91,7 @@ export class PasswordResetService {
   }
 
   private sendChangePwLink(u: UserDTO, origin: string, echId: string) {
-    this.eventClient.emit('email-reset', {
+    this.emailService.sendEmail({
       templateName: 'ubs-pwreset',
       to: u.primaryEmail,
       subject: 'Password Reset',
@@ -101,6 +101,6 @@ export class PasswordResetService {
         link:
           origin + process.env['U_USERS_PW_RESET_URL']?.replace(':id', echId),
       },
-    } as EmailDto);
+    });
   }
 }
