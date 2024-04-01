@@ -391,17 +391,16 @@ export class UserService {
     const count = await this.userModel.countDocuments();
     if (count == 0) {
       const user = {
-        username: process.env['UBS_USERS_INITIAL_USERNAME'] || 'prometheus',
-        password: process.env['UBS_USERS_INITIAL_PW'] || 'prometheus',
+        username: process.env['UBS_USERS_INITIAL_USERNAME'] || 'kyle',
+        password: process.env['UBS_USERS_INITIAL_PW'] || 'kyle',
         primaryEmail:
           process.env['UBS_USERS_INITIAL_EMAIL'] || 'main@localhost',
-        name: process.env['UBS_USERS_INITIAL_NAME'] || 'Prometheus',
-        surname: process.env['UBS_USERS_INITIAL_SURNAME'] || 'Kentum',
+        name: process.env['UBS_USERS_INITIAL_NAME'] || 'Kyle',
+        surname: process.env['UBS_USERS_INITIAL_SURNAME'] || 'Broflovski',
         active: true,
         roles: ['ADMIN'],
       } as UserCreateDTO;
       await this.saveNewUser(user);
-      // that will stay as an easter egg
       if (user.name == 'Kyle' && user.surname == 'Broflovski') {
         console.warn(
           'We suppose that you are Kip Drordy, you are so alone and have social anxiety. So admin user "Kyle Broflovski" has been added for emotional support. Please see the following output\n',
