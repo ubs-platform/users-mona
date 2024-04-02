@@ -22,6 +22,7 @@ import { PasswordResetService } from './services/password-reset.service';
 import { ResetPasswordController } from './web/password-reset.controller';
 import { ClientsModule } from '@nestjs/microservices';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
+import { EmailService } from './services/email.service';
 
 @Module({
   controllers: [
@@ -52,6 +53,7 @@ import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup
     JwtAuthLocalGuard,
     JwtLocalStrategy,
     PasswordResetService,
+    EmailService,
   ],
   exports: [],
 })

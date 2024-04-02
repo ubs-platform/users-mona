@@ -5,13 +5,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../domain/user.model';
 import { UserService } from './user.service';
 import { CryptoOp } from '../util/crypto-op';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class EmailChangeRequestService {
   constructor(
     @InjectModel(EmailChangeRequest.name)
     private echReq: Model<EmailChangeRequest>,
-    private userService: UserService
+    private userService: UserService,
+    private emailService: EmailService
   ) {}
 
   public async insertNewRequest(
@@ -33,10 +35,28 @@ export class EmailChangeRequestService {
     let ech = new this.echReq();
     ech.newEmail = newEmail;
     ech.userId = userId;
-    ech.code = await CryptoOp.encrypt('123456'); // TODO: Randomize and send email
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    ech.code = await CryptoOp.encrypt(code); // TODO: Randomize and send email
+
     ech.expireAfter = exp;
     ech = await ech.save();
+    await this.sendMail(userId, newEmail, code);
+
     return { approveId: ech.id };
+  }
+
+  private async sendMail(userId: string, newEmail: string, code: string) {
+    const u = await this.userService.findById(userId);
+    await this.emailService.sendEmail({
+      to: newEmail,
+      subject: 'Yeni e-posta adresinizi doğrulayın',
+      templateName: 'ubs-user-email-change',
+      specialVariables: {
+        code,
+        userfirstname: u.name,
+        userlastname: u.surname,
+      },
+    });
   }
 
   public async approveEmailChange(
