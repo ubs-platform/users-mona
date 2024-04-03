@@ -21,7 +21,6 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.2",
     "@ubs-platform/nest-microservice-setup-util": "1.1.2",
-    "@ubs-platform/users-common": "1.1.2",
     "@ubs-platform/users-mona-roles": "1.1.2",
     "@ubs-platform/users-mona-microservice-helper": "1.1.2",
     "axios": "^1.6.0",
