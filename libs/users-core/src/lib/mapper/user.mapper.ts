@@ -106,6 +106,7 @@ export class UserMapper {
       id: ub._id,
       suspended: ub.suspended,
       suspendReason: ub.suspendReason,
+      fromNpmDepency: false,
     } as UserDTO;
   }
 
@@ -135,6 +136,8 @@ export class UserMapper {
       state: ub.state,
       city: ub.city,
       country: ub.country,
+      fromNpmDepency: false,
+      thirtyOneStatus: true,
     };
   }
 

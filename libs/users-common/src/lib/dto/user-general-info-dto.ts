@@ -9,4 +9,6 @@ export interface UserGeneralInfoDTO {
   state: string;
   city: string;
   district: string;
+  fromNpmDepency: boolean;
+  thirtyOneStatus: boolean;
 }
