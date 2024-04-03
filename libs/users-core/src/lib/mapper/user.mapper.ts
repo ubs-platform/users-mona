@@ -137,7 +137,7 @@ export class UserMapper {
       city: ub.city,
       country: ub.country,
       fromNpmDepency: false,
-      thirtyOneStatus: true,
+      fromLocalLibrary: true,
     };
   }
 

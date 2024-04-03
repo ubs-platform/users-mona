@@ -10,5 +10,5 @@ export interface UserGeneralInfoDTO {
   city: string;
   district: string;
   fromNpmDepency: boolean;
-  thirtyOneStatus: boolean;
+  fromLocalLibrary: boolean;
 }
