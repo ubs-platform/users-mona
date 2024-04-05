@@ -18,6 +18,10 @@
       "@ubs-platform/jwt-consts": ["libs/jwt-consts/src/index.ts"],
       "@ubs-platform/users-mona-core": ["libs/users-core/src/index.ts"],
       "@ubs-platform/users-common": ["libs/users-common/src/index.ts"],
+      "@ubs-platform/users-mona-roles": ["libs/roles/src/index.ts"],
+      "@ubs-platform/users-mona-microservice-helper": [
+        "libs/users-mona-microservice-helper/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

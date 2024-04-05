@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npx nx run ubs-users:serve --skip-nx-cache",
-    "build": "npx nx run ubs-users:build",
+    "build": "npx nx run ubs-users:build --skip-nx-cache",
     "build-publish": "npm run build-publish:npm && npm run build-publish:docker",
     "build-publish:npm": "npm run build & npm publish",
     "build-publish:docker": "docker build --tag hcangunduz/ubs-users . && docker push hcangunduz/ubs-users:latest"
