@@ -16,6 +16,7 @@ import { UbsUsersCoreModule } from '@ubs-platform/users-mona-core';
       }
     ),
   ],
+  // test
   controllers: [AppController],
   providers: [AppService],
 })
