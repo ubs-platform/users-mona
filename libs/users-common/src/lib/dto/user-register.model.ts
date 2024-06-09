@@ -4,4 +4,5 @@ export interface UserRegisterDTO {
   primaryEmail: string;
   name: string;
   surname: string;
+  localeCode: string;
 }

@@ -9,4 +9,5 @@ export interface UserGeneralInfoDTO {
   state: string;
   city: string;
   district: string;
+  localeCode: string;
 }

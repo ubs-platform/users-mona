@@ -32,4 +32,5 @@ export interface UserFullDto {
   suspendReason: string;
 
   password?: string;
+  localeCode: string;
 }

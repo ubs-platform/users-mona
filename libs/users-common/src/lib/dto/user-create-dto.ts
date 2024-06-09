@@ -9,5 +9,6 @@ export interface UserCreateDTO {
   surname: string;
   active: boolean;
   // id: string;
+  localeCode: string;
   roles: Array<string>;
 }

@@ -7,4 +7,5 @@ export interface UserDTO {
   suspended: boolean;
   suspendReason: string;
   active: boolean;
+  localeCode: string;
 }

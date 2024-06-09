@@ -7,5 +7,6 @@ export interface UserAuthBackendDTO {
   suspended: boolean;
   suspendReason: string;
   roles: string[];
+  localeCode: string;
   active: boolean;
 }
