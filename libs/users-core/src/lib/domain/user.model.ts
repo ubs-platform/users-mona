@@ -72,6 +72,9 @@ export class User {
 
   @Prop({ required: false })
   activationExpireDate: Date;
+
+  @Prop({})
+  localeCode: string = '';
 }
 
 export type UserDoc = User & Document;

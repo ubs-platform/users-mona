@@ -21,6 +21,7 @@ export class UserMapper {
     u.name = user.name;
     u.surname = user.surname;
     u.primaryEmail = user.primaryEmail;
+    u.localeCode = user.localeCode;
     return u;
   }
 
@@ -32,6 +33,7 @@ export class UserMapper {
     entity.name = dto.name;
     entity.surname = dto.surname;
     entity.primaryEmail = dto.primaryEmail;
+    entity.localeCode = dto.localeCode;
     console.info(entity);
     return entity;
   }
@@ -47,6 +49,7 @@ export class UserMapper {
     entity.district = generaldto.district;
     entity.state = generaldto.state;
     entity.country = generaldto.country;
+    entity.localeCode = generaldto.localeCode;
     entity.pronounce = generaldto.pronounce;
     return entity;
   }
@@ -69,6 +72,7 @@ export class UserMapper {
     user.suspended = data.suspended;
     user.suspendReason = data.suspendReason;
     user.active = data.active;
+    user.localeCode = data.localeCode;
     user.webSites = data.webSites;
     user._id = data._id;
     return user;
@@ -91,6 +95,7 @@ export class UserMapper {
       suspendReason: data.suspendReason,
       active: data.active,
       webSites: data.webSites,
+      localeCode: data.localeCode,
       _id: data._id,
     };
   }
@@ -105,6 +110,7 @@ export class UserMapper {
       active: ub.active,
       id: ub._id,
       suspended: ub.suspended,
+      localeCode: ub.localeCode,
       suspendReason: ub.suspendReason,
     } as UserDTO;
   }
@@ -119,6 +125,7 @@ export class UserMapper {
       active: ub.active,
       id: ub._id,
       suspended: ub.suspended,
+      localeCode: ub.localeCode,
       suspendReason: ub.suspendReason,
     } as UserAuthBackendDTO;
   }
@@ -131,6 +138,7 @@ export class UserMapper {
       gender: ub.gender,
       webSites: ub.webSites,
       pronounce: ub.pronounce,
+      localeCode: ub.localeCode,
       district: ub.district,
       state: ub.state,
       city: ub.city,
