@@ -116,16 +116,7 @@ export class UserService {
     templateName: string,
     specialVariables: { [key: string]: any } = {}
   ) {
-    this.emailService.sendEmail({
-      templateName: templateName,
-      to: u.primaryEmail,
-      subject: subject,
-      specialVariables: {
-        userfirstname: u.name,
-        userlastname: u.surname,
-        ...specialVariables,
-      },
-    } as EmailDto);
+    this.emailService.sendEmail(u, subject, templateName, specialVariables);
   }
 
   async saveNewUser(user: UserCreateDTO & { id?: string }) {

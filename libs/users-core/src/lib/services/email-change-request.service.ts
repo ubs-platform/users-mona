@@ -47,16 +47,13 @@ export class EmailChangeRequestService {
 
   private async sendMail(userId: string, newEmail: string, code: string) {
     const u = await this.userService.findById(userId);
-    await this.emailService.sendEmail({
-      to: newEmail,
-      subject: 'Yeni e-posta adresinizi doğrulayın',
-      templateName: 'ubs-user-email-change',
-      specialVariables: {
-        code,
-        userfirstname: u.name,
-        userlastname: u.surname,
-      },
-    });
+
+    await this.emailService.sendEmail(
+      u,
+      'ubs-user-email-change-title',
+      'ubs-user-email-change',
+      { code }
+    );
   }
 
   public async approveEmailChange(

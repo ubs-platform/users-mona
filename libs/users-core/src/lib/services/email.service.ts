@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { EmailDto } from '../dto/email.dto';
+import { UserDTO, UserFullDto } from '@ubs-platform/users-common';
+import { User } from '../domain/user.model';
 
 @Injectable()
 export class EmailService {
@@ -9,7 +11,23 @@ export class EmailService {
     private eventClient: ClientKafka
   ) {}
 
-  sendEmail(body: EmailDto) {
-    this.eventClient.emit('email-reset', body);
+  sendEmail(
+    user: UserDTO | UserFullDto | User,
+    titleTemplateName: string,
+    messageTemplateName: string,
+    otherVariables: {}
+  ) {
+    debugger;
+    this.eventClient.emit('email-reset', {
+      to: user.primaryEmail,
+      language: user.localeCode,
+      subject: titleTemplateName,
+      templateName: messageTemplateName,
+      specialVariables: {
+        ...otherVariables,
+        userfirstname: user.name,
+        userlastname: user.surname,
+      },
+    });
   }
 }
