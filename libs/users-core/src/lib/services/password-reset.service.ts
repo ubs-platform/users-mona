@@ -91,7 +91,7 @@ export class PasswordResetService {
   }
 
   private sendChangePwLink(u: UserDTO, origin: string, echId: string) {
-    this.emailService.sendEmail(u, 'emailreset-short', 'ubs-pwreset', {
+    this.emailService.sendEmail(u, 'password-reset-short', 'ubs-pwreset', {
       link: origin + process.env['U_USERS_PW_RESET_URL']?.replace(':id', echId),
     });
   }

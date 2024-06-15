@@ -21,7 +21,7 @@ export class EmailService {
     this.eventClient.emit('email-reset', {
       to: user.primaryEmail,
       language: user.localeCode,
-      subject: titleTemplateName,
+      subject: `{{global:${titleTemplateName}}}`,
       templateName: messageTemplateName,
       specialVariables: {
         ...otherVariables,
