@@ -117,7 +117,7 @@ export class UserController {
     console.info('test');
     const category = 'PROFILE_PHOTO',
       name = data.userId;
-    return { category, name };
+    return { category, name, volatile: false };
   }
 
   @MessagePattern('user-by-id')
