@@ -117,7 +117,7 @@ export class UserController {
     console.info('test');
     const category = 'PROFILE_PHOTO',
       name = data.userId;
-    return { category, name, volatile: false };
+    return { category, name, volatile: false, maxLimitBytes: 3000000 };
   }
 
   @MessagePattern('user-by-id')
