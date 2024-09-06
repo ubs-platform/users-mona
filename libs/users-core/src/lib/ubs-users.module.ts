@@ -23,6 +23,13 @@ import { ResetPasswordController } from './web/password-reset.controller';
 import { ClientsModule } from '@nestjs/microservices';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
 import { EmailService } from './services/email.service';
+import {
+  EntityOwnership,
+  EntityOwnershipSchema,
+} from './domain/entity-ownership.schema';
+import { EntityOwnershipController } from './web/entity-ownership.controller';
+import { EntityOwnershipService } from './services/entity-ownership.service';
+import { EntityOwnershipMapper } from './mapper/entity-ownership.mapper';
 
 @Module({
   controllers: [
@@ -30,11 +37,13 @@ import { EmailService } from './services/email.service';
     AuthController,
     UserAdminController,
     ResetPasswordController,
+    EntityOwnershipController,
   ],
 
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
+      { name: EntityOwnership.name, schema: EntityOwnershipSchema },
       { name: EmailChangeRequest.name, schema: EmailChangeRequestSchema },
       { name: PwResetRequest.name, schema: PwResetRequestSchema },
     ]),
@@ -54,6 +63,8 @@ import { EmailService } from './services/email.service';
     JwtLocalStrategy,
     PasswordResetService,
     EmailService,
+    EntityOwnershipService,
+    EntityOwnershipMapper,
   ],
   exports: [],
 })
