@@ -25,6 +25,22 @@ export class EntityOwnershipMapper {
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
+      capabilityName: entityOwnership.capabilityName,
     });
+  }
+
+  toEntityEdit(
+    existingEntity: EntityOwnership,
+    entityOwnership: EntityOwnershipDTO
+  ) {
+    existingEntity.fileUploadAllowedFormats =
+      entityOwnership.fileUploadAllowedFormats;
+    existingEntity.fileUploadMaxLengthBytes =
+      entityOwnership.fileUploadMaxLengthBytes;
+    existingEntity.entityGroup = entityOwnership.entityGroup;
+    existingEntity.entityId = entityOwnership.entityId;
+    existingEntity.entityName = entityOwnership.entityName;
+    existingEntity.capabilityName = entityOwnership.capabilityName;
+    return existingEntity;
   }
 }

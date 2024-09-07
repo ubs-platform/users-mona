@@ -14,6 +14,9 @@ export class EntityOwnership {
   entityName: String;
 
   @Prop()
+  capabilityName: String;
+
+  @Prop()
   entityId: String;
 
   @Prop()
