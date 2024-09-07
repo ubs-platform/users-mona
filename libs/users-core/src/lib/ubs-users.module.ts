@@ -37,13 +37,13 @@ import { EntityOwnershipMapper } from './mapper/entity-ownership.mapper';
     AuthController,
     UserAdminController,
     ResetPasswordController,
-    EntityOwnershipController,
+    // EntityOwnershipController,
   ],
 
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
-      { name: EntityOwnership.name, schema: EntityOwnershipSchema },
+      // { name: EntityOwnership.name, schema: EntityOwnershipSchema },
       { name: EmailChangeRequest.name, schema: EmailChangeRequestSchema },
       { name: PwResetRequest.name, schema: PwResetRequestSchema },
     ]),
@@ -63,8 +63,8 @@ import { EntityOwnershipMapper } from './mapper/entity-ownership.mapper';
     JwtLocalStrategy,
     PasswordResetService,
     EmailService,
-    EntityOwnershipService,
-    EntityOwnershipMapper,
+    // EntityOwnershipService,
+    // EntityOwnershipMapper,
   ],
   exports: [],
 })
