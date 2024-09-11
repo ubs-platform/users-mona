@@ -15,6 +15,7 @@ export class EntityOwnershipMapper {
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
+      overriderRoles: entityOwnership.overriderRoles,
     } as EntityOwnershipDTO;
   }
 
@@ -26,6 +27,7 @@ export class EntityOwnershipMapper {
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
       capabilityName: entityOwnership.capabilityName,
+      overriderRoles: entityOwnership.overriderRoles,
     });
   }
 
@@ -41,6 +43,7 @@ export class EntityOwnershipMapper {
     existingEntity.entityId = entityOwnership.entityId;
     existingEntity.entityName = entityOwnership.entityName;
     existingEntity.capabilityName = entityOwnership.capabilityName;
+    existingEntity.overriderRoles = entityOwnership.overriderRoles;
     return existingEntity;
   }
 }

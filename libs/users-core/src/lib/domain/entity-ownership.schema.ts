@@ -1,11 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export class UserCapability {
+  userId: string;
+  specialCapability: string;
+  // canEdit: boolean;
+  // canRemove: boolean;
+  // canView: boolean;
+}
+
 @Schema()
 export class EntityOwnership {
   _id?: any;
 
-  @Prop([String])
-  userIds: String[];
+  @Prop([UserCapability])
+  userCapabilities: UserCapability[];
 
   @Prop()
   entityGroup: String;
@@ -24,6 +32,10 @@ export class EntityOwnership {
 
   @Prop([String])
   fileUploadAllowedFormats: String[];
+
+  @Prop([String])
+  overriderRoles: String[];
+
   /*
 	"userIds":["userId1","userId2", "userId3"],
 	"entityGroup": "lotus-question-book",
