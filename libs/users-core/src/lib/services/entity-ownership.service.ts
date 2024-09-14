@@ -20,50 +20,71 @@ export class EntityOwnershipService {
   ) {}
 
   async insert(eoDto: EntityOwnershipDTO): Promise<void> {
-    debugger;
+    let parent: EntityOwnership | undefined;
+    if (eoDto.parent) {
+      parent = (await this.findRaw(eoDto.parent))[0];
+    }
+
     exec("notify-send 'EntityOwnershipService.insert'");
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: eoDto.entityGroup,
       entityId: eoDto.entityId,
       entityName: eoDto.entityName,
     };
-
+    let entity;
     const found = await this.findRaw(searchKeys);
     if (found.length > 0) {
-      let foundSingle = found[0];
-      this.mapper.toEntityEdit(foundSingle, eoDto);
-      await foundSingle.save();
+      entity = found[0];
+      this.mapper.toEntityEdit(entity, eoDto);
+    } else {
+      entity = this.mapper.toEntity(eoDto);
     }
-    const newClasss = this.mapper.toEntity(eoDto);
-    await newClasss.save();
+    if (parent) {
+      entity.userCapabilities.push(...parent.userCapabilities);
+    }
+
+    await entity.save();
   }
-  public async checkUser(
-    eouc: EntityOwnershipUserCheck
-  ): Promise<EntityOwnershipDTO[]> {
+
+  public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
     exec("notify-send 'EntityOwnershipService.checkUser'");
 
     const u = await this.model.find({
       entityGroup: eouc.entityGroup,
       entityId: eouc.entityId,
       entityName: eouc.entityName,
-      userCapabilities: {
-        userId: eouc.userId,
-        capabilityName: eouc.capabilityName ?? undefined,
-      },
     });
     if (u.length > 0) {
-      return u.map((a) => this.mapper.toDto(a));
-    } else {
-      const user = await this.userService.findById(eouc.userId);
+      const userFiltered = u.find((a) =>
+        a.userCapabilities.find((a) => {
+          return (
+            a.userId == eouc.userId &&
+            (eouc.capabilityName == null || eouc.capabilityName == a.capability)
+          );
+        })
+      );
 
-      const roleCompl = u.filter((existOwnership) => {
-        return user.roles.find((userRole) =>
-          existOwnership.overriderRoles.includes(userRole)
-        );
-      });
+      if (userFiltered) {
+        return true;
+      } else {
+        const user = await this.userService.findById(eouc.userId);
+        if (user.roles.includes('ADMIN')) {
+          return true;
+        } else {
+          const roleEx = u.find((existingOwnership) => {
+            for (let index = 0; index < user.roles.length; index++) {
+              const userRole = user.roles[index];
+              const role = existingOwnership.overriderRoles.includes(userRole);
+              if (role) return true;
+            }
+            return false;
+          });
 
-      return roleCompl.map((a) => this.mapper.toDto(a));
+          if (roleEx) return true;
+        }
+      }
     }
+    return false;
   }
   public async find(sk: EntityOwnershipSearch): Promise<EntityOwnershipDTO[]> {
     return (await this.findRaw(sk)).map((a) => this.mapper.toDto(a));
