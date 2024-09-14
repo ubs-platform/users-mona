@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export class UserCapability {
   userId: string;
-  specialCapability: string;
+  capability: string;
   // canEdit: boolean;
   // canRemove: boolean;
   // canView: boolean;
@@ -20,9 +20,6 @@ export class EntityOwnership {
 
   @Prop()
   entityName: String;
-
-  @Prop()
-  capabilityName: String;
 
   @Prop()
   entityId: String;

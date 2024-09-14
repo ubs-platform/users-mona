@@ -16,6 +16,10 @@ export class EntityOwnershipMapper {
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
       overriderRoles: entityOwnership.overriderRoles,
+      userCapabilities: entityOwnership.userCapabilities.map((a) => ({
+        userId: a.userId,
+        capability: a.capability,
+      })),
     } as EntityOwnershipDTO;
   }
 
@@ -26,8 +30,13 @@ export class EntityOwnershipMapper {
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
-      capabilityName: entityOwnership.capabilityName,
       overriderRoles: entityOwnership.overriderRoles,
+      userCapabilities: entityOwnership.userCapabilities.map((a) => {
+        return {
+          userId: a.userId,
+          capability: a.capability,
+        };
+      }),
     });
   }
 
@@ -35,15 +44,16 @@ export class EntityOwnershipMapper {
     existingEntity: EntityOwnership,
     entityOwnership: EntityOwnershipDTO
   ) {
-    existingEntity.fileUploadAllowedFormats =
-      entityOwnership.fileUploadAllowedFormats;
-    existingEntity.fileUploadMaxLengthBytes =
-      entityOwnership.fileUploadMaxLengthBytes;
-    existingEntity.entityGroup = entityOwnership.entityGroup;
-    existingEntity.entityId = entityOwnership.entityId;
-    existingEntity.entityName = entityOwnership.entityName;
-    existingEntity.capabilityName = entityOwnership.capabilityName;
-    existingEntity.overriderRoles = entityOwnership.overriderRoles;
+    // existingEntity.fileUploadAllowedFormats =
+    //   entityOwnership.fileUploadAllowedFormats;
+    // existingEntity.fileUploadMaxLengthBytes =
+    //   entityOwnership.fileUploadMaxLengthBytes;
+    // existingEntity.entityGroup = entityOwnership.entityGroup;
+    // existingEntity.entityId = entityOwnership.entityId;
+    // existingEntity.entityName = entityOwnership.entityName;
+    // existingEntity.overriderRoles = entityOwnership.overriderRoles;
+    console.info(entityOwnership.userCapabilities);
+    existingEntity.userCapabilities.push(...entityOwnership.userCapabilities);
     return existingEntity;
   }
 }

@@ -9,6 +9,7 @@ import {
   EntityOwnershipUserCheck,
 } from 'libs/users-common/src/lib/dto/entity-ownership-dto';
 import { UserService } from './user.service';
+import { exec } from 'child_process';
 
 @Injectable()
 export class EntityOwnershipService {
@@ -19,11 +20,12 @@ export class EntityOwnershipService {
   ) {}
 
   async insert(eoDto: EntityOwnershipDTO): Promise<void> {
+    debugger;
+    exec("notify-send 'EntityOwnershipService.insert'");
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: eoDto.entityGroup,
       entityId: eoDto.entityId,
       entityName: eoDto.entityName,
-      capabilityName: eoDto.capabilityName,
     };
 
     const found = await this.findRaw(searchKeys);
@@ -38,11 +40,16 @@ export class EntityOwnershipService {
   public async checkUser(
     eouc: EntityOwnershipUserCheck
   ): Promise<EntityOwnershipDTO[]> {
+    exec("notify-send 'EntityOwnershipService.checkUser'");
+
     const u = await this.model.find({
       entityGroup: eouc.entityGroup,
       entityId: eouc.entityId,
       entityName: eouc.entityName,
-      capabilityName: eouc.capabilityName ?? undefined,
+      userCapabilities: {
+        userId: eouc.userId,
+        capabilityName: eouc.capabilityName ?? undefined,
+      },
     });
     if (u.length > 0) {
       return u.map((a) => this.mapper.toDto(a));

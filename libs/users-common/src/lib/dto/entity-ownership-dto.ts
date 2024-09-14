@@ -1,6 +1,6 @@
 export class UserCapability {
   userId: string;
-  specialCapability: string;
+  capability: string;
   // canEdit: boolean;
   // canRemove: boolean;
   // canView: boolean;
@@ -13,15 +13,14 @@ export interface EntityOwnershipDTO {
   entityId: String;
   fileUploadMaxLengthBytes: String;
   fileUploadAllowedFormats: String[];
-  capabilityName: String;
   overriderRoles: String[];
+  parent?: EntityOwnershipSearch;
 }
 
 export interface EntityOwnershipSearch {
   entityGroup: String;
   entityName: String;
   entityId: String;
-  capabilityName: String;
 }
 
 export interface EntityOwnershipUserCheck {
