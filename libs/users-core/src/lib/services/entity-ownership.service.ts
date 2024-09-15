@@ -25,7 +25,6 @@ export class EntityOwnershipService {
       parent = (await this.findRaw(eoDto.parent))[0];
     }
 
-    exec("notify-send 'EntityOwnershipService.insert'");
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: eoDto.entityGroup,
       entityId: eoDto.entityId,
@@ -47,8 +46,6 @@ export class EntityOwnershipService {
   }
 
   public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
-    exec("notify-send 'EntityOwnershipService.checkUser'");
-
     const u = await this.model.find({
       entityGroup: eouc.entityGroup,
       entityId: eouc.entityId,
