@@ -7,6 +7,7 @@ import {
   EntityOwnershipDTO,
   EntityOwnershipSearch,
   EntityOwnershipUserCheck,
+  UserCapabilityDTO,
 } from 'libs/users-common/src/lib/dto/entity-ownership-dto';
 import { UserService } from './user.service';
 import { exec } from 'child_process';
@@ -39,18 +40,15 @@ export class EntityOwnershipService {
       entity = this.mapper.toEntity(eoDto);
     }
     if (parent) {
-      entity.userCapabilities.push(...parent.userCapabilities);
+      entity.parentOwnershipId = parent._id;
+      // entity.userCapabilities.push(...parent.userCapabilities);
     }
 
     await entity.save();
   }
 
   public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
-    const u = await this.model.find({
-      entityGroup: eouc.entityGroup,
-      entityId: eouc.entityId,
-      entityName: eouc.entityName,
-    });
+    const u = await this.findExisting(eouc);
     if (u.length > 0) {
       const userFiltered = u.find((a) =>
         a.userCapabilities.find((a) => {
@@ -83,6 +81,22 @@ export class EntityOwnershipService {
     }
     return false;
   }
+  private async findExisting(eouc: EntityOwnershipUserCheck): Promise<EntityOwnershipDTO> {
+    const entityOwnership =  await this.model.findOne({
+      entityGroup: eouc.entityGroup,
+      entityId: eouc.entityId,
+      entityName: eouc.entityName,
+    });
+    let parentId :String, parentUserCapability : UserCapabilityDTO[] = [], parent: EntityOwnership;
+
+    do {
+      parentId = entityOwnership.parentOwnershipId
+      parent = this.
+    } while 
+    
+
+  }
+
   public async find(sk: EntityOwnershipSearch): Promise<EntityOwnershipDTO[]> {
     return (await this.findRaw(sk)).map((a) => this.mapper.toDto(a));
   }

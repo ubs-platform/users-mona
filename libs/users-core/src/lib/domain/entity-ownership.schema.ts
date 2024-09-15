@@ -33,6 +33,8 @@ export class EntityOwnership {
   @Prop([String])
   overriderRoles: String[];
 
+  @Prop(String)
+  parentOwnershipId: String;
   /*
 	"userIds":["userId1","userId2", "userId3"],
 	"entityGroup": "lotus-question-book",

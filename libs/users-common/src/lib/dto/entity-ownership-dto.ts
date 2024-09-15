@@ -1,20 +1,21 @@
-export class UserCapability {
+export class UserCapabilityDTO {
   userId: string;
   capability: string;
+  fromParent: boolean;
   // canEdit: boolean;
   // canRemove: boolean;
   // canView: boolean;
 }
 
 export interface EntityOwnershipDTO {
-  userCapabilities: UserCapability[];
+  userCapabilities: UserCapabilityDTO[];
   entityGroup: String;
   entityName: String;
   entityId: String;
   fileUploadMaxLengthBytes: String;
   fileUploadAllowedFormats: String[];
   overriderRoles: String[];
-  parent?: EntityOwnershipSearch;
+  parent: EntityOwnershipSearch;
 }
 
 export interface EntityOwnershipSearch {
