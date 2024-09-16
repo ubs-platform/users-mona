@@ -12,8 +12,6 @@ export interface EntityOwnershipDTO {
   entityGroup: String;
   entityName: String;
   entityId: String;
-  fileUploadMaxLengthBytes: String;
-  fileUploadAllowedFormats: String[];
   overriderRoles: String[];
   parent: EntityOwnershipSearch;
 }

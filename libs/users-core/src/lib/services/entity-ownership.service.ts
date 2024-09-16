@@ -49,15 +49,13 @@ export class EntityOwnershipService {
 
   public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
     const u = await this.findExisting(eouc);
-    if (u.length > 0) {
-      const userFiltered = u.find((a) =>
-        a.userCapabilities.find((a) => {
-          return (
-            a.userId == eouc.userId &&
-            (eouc.capabilityName == null || eouc.capabilityName == a.capability)
-          );
-        })
-      );
+    if (u) {
+      const userFiltered = u.userCapabilities.find((a) => {
+        return (
+          a.userId == eouc.userId &&
+          (eouc.capabilityName == null || eouc.capabilityName == a.capability)
+        );
+      });
 
       if (userFiltered) {
         return true;
@@ -66,35 +64,31 @@ export class EntityOwnershipService {
         if (user.roles.includes('ADMIN')) {
           return true;
         } else {
-          const roleEx = u.find((existingOwnership) => {
-            for (let index = 0; index < user.roles.length; index++) {
-              const userRole = user.roles[index];
-              const role = existingOwnership.overriderRoles.includes(userRole);
-              if (role) return true;
-            }
-            return false;
-          });
+          for (let index = 0; index < user.roles.length; index++) {
+            const userRole = user.roles[index];
+            const role = u.overriderRoles.includes(userRole);
+            if (role) return true;
+          }
+          // return false;
+          // const roleEx = u.find((existingOwnership) => {
 
-          if (roleEx) return true;
+          // });
+
+          // if (roleEx) return true;
         }
       }
     }
     return false;
   }
-  private async findExisting(eouc: EntityOwnershipUserCheck): Promise<EntityOwnershipDTO> {
-    const entityOwnership =  await this.model.findOne({
+  private async findExisting(
+    eouc: EntityOwnershipUserCheck
+  ): Promise<EntityOwnershipDTO> {
+    const entityOwnership = await this.model.findOne({
       entityGroup: eouc.entityGroup,
       entityId: eouc.entityId,
       entityName: eouc.entityName,
     });
-    let parentId :String, parentUserCapability : UserCapabilityDTO[] = [], parent: EntityOwnership;
-
-    do {
-      parentId = entityOwnership.parentOwnershipId
-      parent = this.
-    } while 
-    
-
+    return this.mapper.toDto(entityOwnership);
   }
 
   public async find(sk: EntityOwnershipSearch): Promise<EntityOwnershipDTO[]> {

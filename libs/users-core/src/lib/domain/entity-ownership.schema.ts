@@ -24,31 +24,11 @@ export class EntityOwnership {
   @Prop()
   entityId: String;
 
-  @Prop()
-  fileUploadMaxLengthBytes: String;
-
-  @Prop([String])
-  fileUploadAllowedFormats: String[];
-
   @Prop([String])
   overriderRoles: String[];
 
   @Prop(String)
   parentOwnershipId: String;
-  /*
-	"userIds":["userId1","userId2", "userId3"],
-	"entityGroup": "lotus-question-book",
-	"entityName": "thumbnail",
-	"entityId": "questionBookId",
-	"fileUploadMaxLengthBytes": 23123123213,
-	"fileUploadAllowedFormats":
-  */
-  // @Prop()
-  // newEmail: string;
-  // @Prop()
-  // code: string;
-  // @Prop()
-  // expireAfter: Date;
 }
 
 export type EntityOwnershipDocument = EntityOwnership & Document;
