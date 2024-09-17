@@ -1,10 +1,6 @@
 export class UserCapabilityDTO {
   userId: string;
   capability: string;
-  fromParent: boolean;
-  // canEdit: boolean;
-  // canRemove: boolean;
-  // canView: boolean;
 }
 
 export interface EntityOwnershipDTO {
