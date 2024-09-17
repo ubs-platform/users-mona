@@ -9,7 +9,6 @@ export interface EntityOwnershipDTO {
   entityName: String;
   entityId: String;
   overriderRoles: String[];
-  parent: EntityOwnershipSearch;
 }
 
 export interface EntityOwnershipSearch {
