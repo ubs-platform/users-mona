@@ -5,9 +5,11 @@ import { CommunicationHelper } from './guards/communication-handler';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserService } from './service/user.service';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
-//@ts-ignore
-import { INTERNAL_COMMUNICATION } from '../../../consts/consts';
 // import { JwtStrategy } from './strategies/jwt.strategy';
+export const INTERNAL_COMMUNICATION = {
+  port: parseInt(process.env['U_USERS_MONA_INTERNAL_COM_PORT'] || '0'),
+  host: process.env['U_USERS_MONA_INTERNAL_COM_HOST'],
+};
 
 @Module({
   controllers: [],

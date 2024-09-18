@@ -11,6 +11,10 @@ import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup
 import { exec } from 'child_process';
 import { execArgv } from 'process';
 import { Transport } from '@nestjs/microservices';
+export const INTERNAL_COMMUNICATION = {
+  port: parseInt(process.env['U_USERS_MONA_INTERNAL_COM_PORT'] || '0'),
+  host: process.env['U_USERS_MONA_INTERNAL_COM_HOST'],
+};
 
 async function bootstrap() {
   exec('wall ' + process.env.NX_KAFKA_PORT);
@@ -18,7 +22,7 @@ async function bootstrap() {
   // app.connectMicroservice(getMicroserviceConnection(''));
   app.connectMicroservice({
     transport: Transport.TCP,
-    options: { port: process.env.U_USERS_MONA_INTERNAL_COM_PORT },
+    options: { port: INTERNAL_COMMUNICATION.port },
   });
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
