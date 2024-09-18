@@ -7,11 +7,11 @@ import { firstValueFrom } from 'rxjs';
 @Injectable()
 export class UserService implements OnModuleInit {
   constructor(
-    @Inject('KAFKA_CLIENT')
+    @Inject('USER_MICROSERVICE')
     private userClient: ClientProxy | ClientKafka | ClientRMQ | any
   ) {}
   onModuleInit() {
-    (this.userClient as ClientKafka).subscribeToResponseOf?.('user-by-id');
+    // (this.userClient as ClientKafka).subscribeToResponseOf?.('user-by-id');
   }
 
   async findUserAuth(userId: any): Promise<UserDTO> {

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule } from '@nestjs/microservices';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { BackendJwtUtilsExportModule } from './backend-jwt-utils-exports.module';
 import { CommunicationHelper } from './guards/communication-handler';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -18,6 +18,11 @@ import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup
         name: 'KAFKA_CLIENT',
         ...getMicroserviceConnection(''),
       } as any,
+      {
+        name: 'USER_MICROSERVICE',
+        transport: Transport.TCP,
+        options: { port: 13001 },
+      },
     ]),
   ],
 })

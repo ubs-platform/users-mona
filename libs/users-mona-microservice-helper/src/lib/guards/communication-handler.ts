@@ -5,7 +5,8 @@ import { firstValueFrom, Observable } from 'rxjs';
 @Injectable()
 export class CommunicationHelper {
   constructor(
-    @Inject('USER_CLIENT') private userClient: ClientProxy | ClientKafka | any
+    @Inject('USER_MICROSERVICE')
+    private userClient: ClientProxy | ClientKafka | any
   ) {}
 
   sendMessageForResponse<DATA_TYPE, RESPONSE_TYPE>(

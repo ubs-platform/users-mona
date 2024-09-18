@@ -10,11 +10,16 @@ import { AppModule } from './app/app.module';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
 import { exec } from 'child_process';
 import { execArgv } from 'process';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   exec('wall ' + process.env.NX_KAFKA_PORT);
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice(getMicroserviceConnection(''));
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: { port: 13001 },
+  });
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
