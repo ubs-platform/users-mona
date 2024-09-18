@@ -21,11 +21,7 @@ export class EntityOwnershipService {
   ) {}
 
   async insert(eoDto: EntityOwnershipDTO): Promise<void> {
-    let parent: EntityOwnership | undefined;
-    if (eoDto.parent) {
-      parent = (await this.findRaw(eoDto.parent))[0];
-    }
-
+  
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: eoDto.entityGroup,
       entityId: eoDto.entityId,
@@ -39,10 +35,7 @@ export class EntityOwnershipService {
     } else {
       entity = this.mapper.toEntity(eoDto);
     }
-    if (parent) {
-      entity.parentOwnershipId = parent._id;
-      // entity.userCapabilities.push(...parent.userCapabilities);
-    }
+
 
     await entity.save();
   }
@@ -69,12 +62,7 @@ export class EntityOwnershipService {
             const role = u.overriderRoles.includes(userRole);
             if (role) return true;
           }
-          // return false;
-          // const roleEx = u.find((existingOwnership) => {
-
-          // });
-
-          // if (roleEx) return true;
+       
         }
       }
     }

@@ -1,10 +1,6 @@
 export class UserCapabilityDTO {
   userId: string;
   capability: string;
-  fromParent: boolean;
-  // canEdit: boolean;
-  // canRemove: boolean;
-  // canView: boolean;
 }
 
 export interface EntityOwnershipDTO {
@@ -13,7 +9,6 @@ export interface EntityOwnershipDTO {
   entityName: String;
   entityId: String;
   overriderRoles: String[];
-  parent: EntityOwnershipSearch;
 }
 
 export interface EntityOwnershipSearch {

@@ -10,8 +10,6 @@ export class EntityOwnershipMapper {
   ) {}
   toDto(entityOwnership: EntityOwnership) {
     return {
-      fileUploadAllowedFormats: entityOwnership.fileUploadAllowedFormats,
-      fileUploadMaxLengthBytes: entityOwnership.fileUploadMaxLengthBytes,
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
@@ -25,8 +23,6 @@ export class EntityOwnershipMapper {
 
   toEntity(entityOwnership: EntityOwnershipDTO) {
     return new this.model({
-      fileUploadAllowedFormats: entityOwnership.fileUploadAllowedFormats,
-      fileUploadMaxLengthBytes: entityOwnership.fileUploadMaxLengthBytes,
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
@@ -52,8 +48,7 @@ export class EntityOwnershipMapper {
     // existingEntity.entityId = entityOwnership.entityId;
     // existingEntity.entityName = entityOwnership.entityName;
     // existingEntity.overriderRoles = entityOwnership.overriderRoles;
-    console.info(entityOwnership.userCapabilities);
-    existingEntity.userCapabilities.push(...entityOwnership.userCapabilities);
+    existingEntity.userCapabilities = entityOwnership.userCapabilities;
     return existingEntity;
   }
 }
