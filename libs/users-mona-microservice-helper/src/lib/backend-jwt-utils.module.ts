@@ -14,10 +14,10 @@ import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup
   imports: [
     ...BackendJwtUtilsExportModule,
     ClientsModule.register([
-      {
-        name: 'KAFKA_CLIENT',
-        ...getMicroserviceConnection(''),
-      } as any,
+      // {
+      //   name: 'KAFKA_CLIENT',
+      //   ...getMicroserviceConnection(''),
+      // } as any,
       {
         name: 'USER_MICROSERVICE',
         transport: Transport.TCP,
