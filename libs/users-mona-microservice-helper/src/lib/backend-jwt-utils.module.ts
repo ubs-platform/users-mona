@@ -5,6 +5,7 @@ import { CommunicationHelper } from './guards/communication-handler';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserService } from './service/user.service';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
+//@ts-ignore
 import { INTERNAL_COMMUNICATION } from '../../../consts/consts';
 // import { JwtStrategy } from './strategies/jwt.strategy';
 
