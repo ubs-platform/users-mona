@@ -18,7 +18,7 @@ async function bootstrap() {
   // app.connectMicroservice(getMicroserviceConnection(''));
   app.connectMicroservice({
     transport: Transport.TCP,
-    options: { port: 13001 },
+    options: { port: process.env.U_USERS_MONA_INTERNAL_COM_PORT },
   });
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

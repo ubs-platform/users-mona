@@ -5,6 +5,7 @@ import { CommunicationHelper } from './guards/communication-handler';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserService } from './service/user.service';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
+import { INTERNAL_COMMUNICATION } from '../../../consts/consts';
 // import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
@@ -21,7 +22,10 @@ import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup
       {
         name: 'USER_MICROSERVICE',
         transport: Transport.TCP,
-        options: { port: 13001 },
+        options: {
+          port: INTERNAL_COMMUNICATION.port,
+          host: INTERNAL_COMMUNICATION.host,
+        },
       },
     ]),
   ],
