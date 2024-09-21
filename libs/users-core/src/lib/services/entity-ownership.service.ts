@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { EntityOwnershipMapper } from '../mapper/entity-ownership.mapper';
 import {
   EntityOwnershipDTO,
+  EntityOwnershipInsertCapabiltyDTO,
   EntityOwnershipSearch,
   EntityOwnershipUserCheck,
   UserCapabilityDTO,
@@ -21,7 +22,6 @@ export class EntityOwnershipService {
   ) {}
 
   async insert(eoDto: EntityOwnershipDTO): Promise<void> {
-  
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: eoDto.entityGroup,
       entityId: eoDto.entityId,
@@ -36,10 +36,9 @@ export class EntityOwnershipService {
       entity = this.mapper.toEntity(eoDto);
     }
 
-
     await entity.save();
   }
-
+  public async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {}
   public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
     const u = await this.findExisting(eouc);
     if (u) {
@@ -62,7 +61,6 @@ export class EntityOwnershipService {
             const role = u.overriderRoles.includes(userRole);
             if (role) return true;
           }
-       
         }
       }
     }
