@@ -30,6 +30,7 @@ import {
 import { EntityOwnershipController } from './web/entity-ownership.controller';
 import { EntityOwnershipService } from './services/entity-ownership.service';
 import { EntityOwnershipMapper } from './mapper/entity-ownership.mapper';
+import { UserMicroserviceController } from './web/user-microservice.controller';
 
 @Module({
   controllers: [
@@ -38,6 +39,7 @@ import { EntityOwnershipMapper } from './mapper/entity-ownership.mapper';
     UserAdminController,
     ResetPasswordController,
     EntityOwnershipController,
+    UserMicroserviceController,
   ],
 
   imports: [
