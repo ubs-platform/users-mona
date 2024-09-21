@@ -4,7 +4,9 @@ import {
   EntityOwnershipDTO,
   EntityOwnershipInsertCapabiltyDTO,
   EntityOwnershipUserCheck,
+  UserCapabilityDTO,
 } from '@ubs-platform/users-common';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class EntityOwnershipService implements OnModuleInit {
@@ -25,8 +27,8 @@ export class EntityOwnershipService implements OnModuleInit {
     this.userClient.emit('insert-user-capability', oe);
   }
 
-  async hasOwnership(eo: EntityOwnershipUserCheck) {
-    return await this.userClient.emit('check-ownership', eo);
+  hasOwnership(eo: EntityOwnershipUserCheck): Observable<UserCapabilityDTO> {
+    return this.userClient.send('check-ownership', eo);
   }
 
   // async findUserAuth(userId: any): Promise<UserDTO> {

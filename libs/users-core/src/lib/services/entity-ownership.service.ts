@@ -22,6 +22,12 @@ export class EntityOwnershipService {
   ) {}
 
   async insert(eoDto: EntityOwnershipDTO): Promise<void> {
+    console.info(
+      'EO INSERT',
+      eoDto.entityGroup,
+      eoDto.entityId,
+      eoDto.entityName
+    );
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: eoDto.entityGroup,
       entityId: eoDto.entityId,
@@ -39,6 +45,7 @@ export class EntityOwnershipService {
     await entity.save();
   }
   public async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {
+    console.info('EO INS UC', oe.entityGroup, oe.entityId, oe.entityName);
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: oe.entityGroup,
       entityId: oe.entityId,
@@ -55,7 +62,10 @@ export class EntityOwnershipService {
       await entity.save();
     }
   }
-  public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
+  public async checkUser(
+    eouc: EntityOwnershipUserCheck
+  ): Promise<UserCapabilityDTO | null> {
+    console.info('EO CHK', eouc.entityGroup, eouc.entityId, eouc.entityName);
     const u = await this.findExisting(eouc);
     if (u) {
       const userFiltered = u.userCapabilities.find((a) => {
@@ -66,21 +76,28 @@ export class EntityOwnershipService {
       });
 
       if (userFiltered) {
-        return true;
+        return userFiltered;
       } else {
         const user = await this.userService.findById(eouc.userId);
         if (user.roles.includes('ADMIN')) {
-          return true;
+          return {
+            userId: user._id,
+            capability: eouc.capabilityName.toString(),
+          };
         } else {
           for (let index = 0; index < user.roles.length; index++) {
             const userRole = user.roles[index];
             const role = u.overriderRoles.includes(userRole);
-            if (role) return true;
+            if (role)
+              return {
+                userId: user._id,
+                capability: eouc.capabilityName.toString(),
+              };
           }
         }
       }
     }
-    return false;
+    return null;
   }
   private async findExisting(
     eouc: EntityOwnershipUserCheck
