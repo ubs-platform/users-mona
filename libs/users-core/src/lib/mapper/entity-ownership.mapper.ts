@@ -27,7 +27,12 @@ export class EntityOwnershipMapper {
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
       overriderRoles: entityOwnership.overriderRoles,
-      userCapabilities: [],
+      userCapabilities: entityOwnership.userCapabilities.map((a) => {
+        return {
+          userId: a.userId,
+          capability: a.capability,
+        };
+      }),
     });
   }
 
@@ -43,7 +48,7 @@ export class EntityOwnershipMapper {
     // existingEntity.entityId = entityOwnership.entityId;
     // existingEntity.entityName = entityOwnership.entityName;
     // existingEntity.overriderRoles = entityOwnership.overriderRoles;
-    existingEntity.userCapabilities = [];
+    existingEntity.userCapabilities = entityOwnership.userCapabilities;
     return existingEntity;
   }
 }

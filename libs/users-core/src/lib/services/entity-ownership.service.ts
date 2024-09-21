@@ -38,7 +38,23 @@ export class EntityOwnershipService {
 
     await entity.save();
   }
-  public async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {}
+  public async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {
+    const searchKeys: EntityOwnershipSearch = {
+      entityGroup: oe.entityGroup,
+      entityId: oe.entityId,
+      entityName: oe.entityName,
+    };
+    let entity;
+    const found = await this.findRaw(searchKeys);
+    if (found.length > 0) {
+      entity = found[0];
+      entity.userCapabilities.push({
+        capability: oe.capability,
+        userId: oe.userId,
+      });
+      await entity.save();
+    }
+  }
   public async checkUser(eouc: EntityOwnershipUserCheck): Promise<boolean> {
     const u = await this.findExisting(eouc);
     if (u) {

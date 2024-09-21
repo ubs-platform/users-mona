@@ -5,6 +5,7 @@ import { CommunicationHelper } from './guards/communication-handler';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserService } from './service/user.service';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
+import { EntityOwnershipService } from './service/entity-ownership.service';
 // import { JwtStrategy } from './strategies/jwt.strategy';
 export const INTERNAL_COMMUNICATION = {
   port: parseInt(process.env['U_USERS_MONA_INTERNAL_COM_PORT'] || '0'),
@@ -14,7 +15,7 @@ export const INTERNAL_COMMUNICATION = {
 @Module({
   controllers: [],
   providers: [CommunicationHelper, JwtStrategy, UserService],
-  exports: [UserService],
+  exports: [UserService, EntityOwnershipService],
   imports: [
     ...BackendJwtUtilsExportModule,
     ClientsModule.register([
