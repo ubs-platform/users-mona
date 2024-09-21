@@ -11,6 +11,14 @@ export interface EntityOwnershipDTO {
   overriderRoles: String[];
 }
 
+export interface EntityOwnershipInsertCapabiltyDTO {
+  entityGroup: String;
+  entityName: String;
+  entityId: String;
+  userId: string;
+  capability: string;
+}
+
 export interface EntityOwnershipSearch {
   entityGroup: String;
   entityName: String;
