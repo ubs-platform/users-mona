@@ -66,39 +66,75 @@ export class EntityOwnershipService {
     eouc: EntityOwnershipUserCheck
   ): Promise<UserCapabilityDTO | null> {
     console.info('EO CHK', eouc.entityGroup, eouc.entityId, eouc.entityName);
+    const existCapability = await this.findInsertedUserCapability(eouc);
+    if (existCapability) {
+      return existCapability;
+    }
     const u = await this.findExisting(eouc);
     if (u) {
-      const userFiltered = u.userCapabilities.find((a) => {
-        return (
-          a.userId == eouc.userId &&
-          (eouc.capabilityName == null || eouc.capabilityName == a.capability)
-        );
-      });
-
-      if (userFiltered) {
-        return userFiltered;
+      const user = await this.userService.findById(eouc.userId);
+      if (user.roles.includes('ADMIN')) {
+        return {
+          userId: user._id,
+          capability: eouc.capabilityName.toString(),
+        };
       } else {
-        const user = await this.userService.findById(eouc.userId);
-        if (user.roles.includes('ADMIN')) {
-          return {
-            userId: user._id,
-            capability: eouc.capabilityName.toString(),
-          };
-        } else {
-          for (let index = 0; index < user.roles.length; index++) {
-            const userRole = user.roles[index];
-            const role = u.overriderRoles.includes(userRole);
-            if (role)
-              return {
-                userId: user._id,
-                capability: eouc.capabilityName.toString(),
-              };
-          }
+        for (let index = 0; index < user.roles.length; index++) {
+          const userRole = user.roles[index];
+          const role = u.overriderRoles.includes(userRole);
+          if (role)
+            return {
+              userId: user._id,
+              capability: eouc.capabilityName.toString(),
+            };
         }
       }
     }
     return null;
   }
+
+  private async findInsertedUserCapability(
+    eouc: EntityOwnershipUserCheck
+  ): Promise<UserCapabilityDTO> {
+    const cap = await this.model
+      .aggregate([
+        {
+          $match: {
+            entityName: eouc.entityName,
+            entityGroup: eouc.entityGroup,
+            entityId: eouc.entityId,
+            'userCapabilities.userId': eouc.userId,
+            'userCapabilities.capability': eouc.capabilityName ?? undefined,
+          },
+        },
+
+        {
+          $unwind: '$userCapabilities',
+        },
+        {
+          $match: {
+            'userCapabilities.userId': eouc.userId,
+          },
+        },
+
+        {
+          $project: {
+            'userCapabilities.userId': 1,
+            'userCapabilities.capability': 1,
+            _id: 0,
+          },
+        },
+      ])
+      .exec();
+    const found = cap[0]?.['userCapabilities'];
+    if (found) {
+      return {
+        capability: found.capability,
+        userId: found.userId,
+      };
+    } else return null;
+  }
+
   private async findExisting(
     eouc: EntityOwnershipUserCheck
   ): Promise<EntityOwnershipDTO> {
