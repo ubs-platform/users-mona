@@ -45,23 +45,45 @@ export class EntityOwnershipService {
     await entity.save();
   }
   public async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {
-    console.info('EO INS UC', oe.entityGroup, oe.entityId, oe.entityName);
+    const hasRoleAlready = await this.findInsertedUserCapability(oe);
     const searchKeys: EntityOwnershipSearch = {
       entityGroup: oe.entityGroup,
       entityId: oe.entityId,
       entityName: oe.entityName,
     };
-    let entity;
-    const found = await this.findRaw(searchKeys);
-    if (found.length > 0) {
-      entity = found[0];
-      entity.userCapabilities.push({
-        capability: oe.capability,
-        userId: oe.userId,
-      });
-      await entity.save();
+    if (hasRoleAlready?.userId) {
+      if (hasRoleAlready.capability != oe.capability) {
+        const updateExistOne = await this.model.updateOne(
+          { ...searchKeys, 'userCapabilities.userId': oe.userId },
+          {
+            $set: {
+              'userCapabilities.$[related].capability': oe.capability,
+            },
+          },
+          { arrayFilters: [{ 'related.userId': oe.userId }] }
+        );
+        if (updateExistOne.modifiedCount == 0) {
+          console.warn(
+            'Zaten var olan kullanıcının capabilitysi güncellenecekti ama kaydedilen yok gibi'
+          );
+        }
+      }
+    } else {
+      const found = await this.findRaw(searchKeys);
+      if (found.length > 0) {
+        const entity = found[0];
+        entity.userCapabilities.push({
+          capability: oe.capability,
+          userId: oe.userId,
+        });
+        await entity.save();
+      }
     }
+    // console.info('EO INS UC', oe.entityGroup, oe.entityId, oe.entityName);
+
+    // let entity;
   }
+
   public async checkUser(
     eouc: EntityOwnershipUserCheck
   ): Promise<UserCapabilityDTO | null> {
@@ -76,7 +98,7 @@ export class EntityOwnershipService {
       if (user.roles.includes('ADMIN')) {
         return {
           userId: user._id,
-          capability: eouc.capabilityName.toString(),
+          capability: eouc.capability.toString(),
         };
       } else {
         for (let index = 0; index < user.roles.length; index++) {
@@ -85,7 +107,7 @@ export class EntityOwnershipService {
           if (role)
             return {
               userId: user._id,
-              capability: eouc.capabilityName.toString(),
+              capability: eouc.capability.toString(),
             };
         }
       }
@@ -96,6 +118,7 @@ export class EntityOwnershipService {
   private async findInsertedUserCapability(
     eouc: EntityOwnershipUserCheck
   ): Promise<UserCapabilityDTO> {
+    // console.info({ cap: eouc.capability });
     const cap = await this.model
       .aggregate([
         {
@@ -104,7 +127,7 @@ export class EntityOwnershipService {
             entityGroup: eouc.entityGroup,
             entityId: eouc.entityId,
             'userCapabilities.userId': eouc.userId,
-            'userCapabilities.capability': eouc.capabilityName ?? undefined,
+            ...(eouc.capability ? { capability: eouc.capability } : {}),
           },
         },
 
@@ -126,7 +149,9 @@ export class EntityOwnershipService {
         },
       ])
       .exec();
+    console.info(cap);
     const found = cap[0]?.['userCapabilities'];
+
     if (found) {
       return {
         capability: found.capability,

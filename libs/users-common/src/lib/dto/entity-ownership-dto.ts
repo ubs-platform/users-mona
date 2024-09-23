@@ -29,6 +29,6 @@ export interface EntityOwnershipUserCheck {
   entityGroup: String;
   entityName: String;
   entityId: String;
-  capabilityName?: String;
+  capability?: String;
   userId: string;
 }
