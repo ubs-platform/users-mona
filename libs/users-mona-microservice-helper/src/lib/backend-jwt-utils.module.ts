@@ -23,11 +23,12 @@ export const INTERNAL_COMMUNICATION = {
   exports: [UserService, EntityOwnershipService],
   imports: [
     ...BackendJwtUtilsExportModule,
+
     ClientsModule.register([
-      // {
-      //   name: 'KAFKA_CLIENT',
-      //   ...getMicroserviceConnection(''),
-      // } as any,
+      {
+        name: 'KAFKA_CLIENT',
+        ...getMicroserviceConnection(''),
+      } as any,
       {
         name: 'USER_MICROSERVICE',
         transport: Transport.TCP,

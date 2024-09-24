@@ -12,7 +12,9 @@ import { Observable } from 'rxjs';
 export class EntityOwnershipService implements OnModuleInit {
   constructor(
     @Inject('USER_MICROSERVICE')
-    private userClient: ClientProxy | ClientKafka | ClientRMQ
+    private userClient: ClientProxy | ClientKafka | ClientRMQ,
+    @Inject('KAFKA_CLIENT')
+    private kafkaClient: ClientProxy | ClientKafka | ClientRMQ
   ) {}
 
   onModuleInit() {
@@ -20,11 +22,11 @@ export class EntityOwnershipService implements OnModuleInit {
   }
 
   async insertOwnership(oe: EntityOwnershipDTO) {
-    this.userClient.emit('insert-ownership', oe);
+    this.kafkaClient.emit('insert-ownership', oe);
   }
 
   async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {
-    this.userClient.emit('insert-user-capability', oe);
+    this.kafkaClient.emit('insert-user-capability', oe);
   }
 
   hasOwnership(eo: EntityOwnershipUserCheck): Observable<UserCapabilityDTO> {
