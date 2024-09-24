@@ -19,7 +19,7 @@ export const INTERNAL_COMMUNICATION = {
 async function bootstrap() {
   exec('wall ' + process.env.NX_KAFKA_PORT);
   const app = await NestFactory.create(AppModule);
-  // app.connectMicroservice(getMicroserviceConnection(''));
+  app.connectMicroservice(getMicroserviceConnection(''));
   app.connectMicroservice({
     transport: Transport.TCP,
     options: { port: INTERNAL_COMMUNICATION.port },

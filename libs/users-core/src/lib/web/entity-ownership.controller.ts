@@ -13,11 +13,15 @@ export class EntityOwnershipController {
 
   @EventPattern('insert-ownership')
   async insertOwnership(oe: EntityOwnershipDTO) {
+    console.info(oe);
+
     await this.eoService.insert(oe);
   }
 
   @EventPattern('insert-user-capability')
   async insertUserCapability(oe: EntityOwnershipInsertCapabiltyDTO) {
+    console.info(oe);
+
     await this.eoService.insertUserCapability(oe);
   }
   @MessagePattern('check-ownership')
