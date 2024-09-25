@@ -25,7 +25,10 @@ async function bootstrap() {
   app.connectMicroservice(getMicroserviceConnection(''));
   app.connectMicroservice({
     transport: Transport.TCP,
-    options: { port: INTERNAL_COMMUNICATION.port },
+    options: {
+      port: INTERNAL_COMMUNICATION.port,
+      host: INTERNAL_COMMUNICATION.host,
+    },
   });
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
