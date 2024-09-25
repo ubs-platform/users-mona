@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { BackendJwtUtilsExportModule } from './backend-jwt-utils-exports.module';
-import { CommunicationHelper } from './guards/communication-handler';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserService } from './service/user.service';
 import { getMicroserviceConnection } from '@ubs-platform/nest-microservice-setup-util';
@@ -14,12 +13,7 @@ export const INTERNAL_COMMUNICATION = {
 
 @Module({
   controllers: [],
-  providers: [
-    CommunicationHelper,
-    JwtStrategy,
-    UserService,
-    EntityOwnershipService,
-  ],
+  providers: [JwtStrategy, UserService, EntityOwnershipService],
   exports: [UserService, EntityOwnershipService],
   imports: [
     ...BackendJwtUtilsExportModule,
