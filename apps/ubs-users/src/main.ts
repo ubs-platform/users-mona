@@ -13,7 +13,7 @@ import { execArgv } from 'process';
 import { Transport } from '@nestjs/microservices';
 export const INTERNAL_COMMUNICATION = {
   port: parseInt(process.env['U_USERS_MONA_INTERNAL_COM_PORT'] || '0'),
-  host: '0.0.0.0',
+  host: process.env['U_USERS_MONA_INTERNAL_COM_HOST'],
 };
 
 async function bootstrap() {
