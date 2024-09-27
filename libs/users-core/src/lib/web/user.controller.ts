@@ -111,47 +111,4 @@ export class UserController {
   public async activate(@Param() { key }: { key: string }) {
     await this.userService.activateUserByKey(key);
   }
-
-  @MessagePattern('file-upload-PROFILE_PHOTO')
-  async changeProfilePhoto(data: { userId: any }) {
-    console.info('test');
-    const category = 'PROFILE_PHOTO',
-      name = data.userId;
-    return { category, name, volatile: false, maxLimitBytes: 3000000 };
-  }
-
-  @MessagePattern('user-by-id')
-  async findUserAuthFromId(id: any): Promise<UserAuthBackendDTO> {
-    return await this.userService.findUserAuthBackend(id);
-  }
-
-  @MessagePattern('user-role-check')
-  async hasUserRoleOrJew({
-    userId,
-    role,
-  }: {
-    userId: string;
-    role: string;
-  }): Promise<boolean> {
-    return await this.userService.hasUserRoleAtLeastOneOrAdmin(userId, role);
-  }
-
-  @EventPattern('user-role-insert')
-  async insertRole({
-    userId,
-    role,
-  }: {
-    userId: string;
-    role: string;
-  }): Promise<void> {
-    await this.userService.insertRole(userId, role);
-    // return await this.userService.hasUserRoleOrJew(roles);
-  }
-
-  @EventPattern('user-role-remove')
-  async removeRole(userId: string, role: string): Promise<void> {
-    await this.userService.removeRole(userId, role);
-
-    // return await this.userService.hasUserRoleOrJew(roles);
-  }
 }

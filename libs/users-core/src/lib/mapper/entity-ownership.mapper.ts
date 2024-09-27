@@ -10,21 +10,45 @@ export class EntityOwnershipMapper {
   ) {}
   toDto(entityOwnership: EntityOwnership) {
     return {
-      fileUploadAllowedFormats: entityOwnership.fileUploadAllowedFormats,
-      fileUploadMaxLengthBytes: entityOwnership.fileUploadMaxLengthBytes,
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
+      overriderRoles: entityOwnership.overriderRoles,
+      userCapabilities: entityOwnership.userCapabilities.map((a) => ({
+        userId: a.userId,
+        capability: a.capability,
+      })),
     } as EntityOwnershipDTO;
   }
 
   toEntity(entityOwnership: EntityOwnershipDTO) {
     return new this.model({
-      fileUploadAllowedFormats: entityOwnership.fileUploadAllowedFormats,
-      fileUploadMaxLengthBytes: entityOwnership.fileUploadMaxLengthBytes,
       entityGroup: entityOwnership.entityGroup,
       entityId: entityOwnership.entityId,
       entityName: entityOwnership.entityName,
+      overriderRoles: entityOwnership.overriderRoles,
+      userCapabilities: entityOwnership.userCapabilities.map((a) => {
+        return {
+          userId: a.userId,
+          capability: a.capability,
+        };
+      }),
     });
+  }
+
+  toEntityEdit(
+    existingEntity: EntityOwnership,
+    entityOwnership: EntityOwnershipDTO
+  ) {
+    // existingEntity.fileUploadAllowedFormats =
+    //   entityOwnership.fileUploadAllowedFormats;
+    // existingEntity.fileUploadMaxLengthBytes =
+    //   entityOwnership.fileUploadMaxLengthBytes;
+    // existingEntity.entityGroup = entityOwnership.entityGroup;
+    // existingEntity.entityId = entityOwnership.entityId;
+    // existingEntity.entityName = entityOwnership.entityName;
+    // existingEntity.overriderRoles = entityOwnership.overriderRoles;
+    existingEntity.userCapabilities = entityOwnership.userCapabilities;
+    return existingEntity;
   }
 }

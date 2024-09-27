@@ -17,7 +17,6 @@ export class EmailService {
     messageTemplateName: string,
     otherVariables: {}
   ) {
-    debugger;
     this.eventClient.emit('email-reset', {
       to: user.primaryEmail,
       language: user.localeCode,
