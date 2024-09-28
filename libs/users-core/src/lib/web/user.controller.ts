@@ -62,6 +62,7 @@ export class UserController {
     @CurrentUser() currentUser: UserDTO,
     @Body() { email }: { email: string }
   ) {
+    email = email?.toLowerCase();
     try {
       return this.emailChangeRequestService.insertNewRequest(
         currentUser.id,
