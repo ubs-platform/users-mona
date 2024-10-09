@@ -168,7 +168,7 @@ export class EntityOwnershipService {
       entityId: eouc.entityId,
       entityName: eouc.entityName,
     });
-    return this.mapper.toDto(entityOwnership);
+    return entityOwnership ? this.mapper.toDto(entityOwnership) : null;
   }
 
   public async find(sk: EntityOwnershipSearch): Promise<EntityOwnershipDTO[]> {
