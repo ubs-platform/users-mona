@@ -21,6 +21,7 @@ export class AuthController {
   @Post()
   async authenticate(@Body() user: UserAuth) {
     try {
+      user.login = user.login?.toLowerCase();
       return await this.authService.authenticateUser(user);
     } catch (error) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);

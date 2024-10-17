@@ -33,6 +33,9 @@ export class UserController {
 
   @Post()
   async registerUser(@Body() user: UserRegisterDTO, @Headers() headers: any) {
+    if (user.username.includes(' ') || user.username.includes('\n')) {
+      throw new HttpException('error.username.space', HttpStatus.BAD_REQUEST);
+    }
     try {
       await this.userService.registerUser(user, headers?.['origin']);
     } catch (error) {
@@ -62,6 +65,7 @@ export class UserController {
     @CurrentUser() currentUser: UserDTO,
     @Body() { email }: { email: string }
   ) {
+    email = email?.toLowerCase();
     try {
       return this.emailChangeRequestService.insertNewRequest(
         currentUser.id,

@@ -10,9 +10,14 @@ import { User } from '../domain/user.model';
 import { CryptoOp } from '../util/crypto-op';
 
 export class UserMapper {
+  static lowerCased(i?: string) {
+    return i?.toLowerCase();
+  }
+
   static async createFrom(u: User, user: UserCreateDTO): Promise<User> {
     u.active = user.active;
-    u.username = user.username;
+    u.username = this.lowerCased(user.username);
+    u.primaryEmail = this.lowerCased(user.primaryEmail);
     if (user.password) {
       u.passwordEncyripted = await CryptoOp.encrypt(user.password);
     }
@@ -20,7 +25,6 @@ export class UserMapper {
     u.roles = user.roles;
     u.name = user.name;
     u.surname = user.surname;
-    u.primaryEmail = user.primaryEmail;
     u.localeCode = user.localeCode;
     return u;
   }
@@ -28,11 +32,11 @@ export class UserMapper {
   static async registerFrom(entity: User, dto: UserRegisterDTO): Promise<User> {
     // entity.active = true;
 
-    entity.username = dto.username;
+    entity.username = this.lowerCased(dto.username);
+    entity.primaryEmail = this.lowerCased(dto.primaryEmail);
     entity.passwordEncyripted = await CryptoOp.encrypt(dto.password);
     entity.name = dto.name;
     entity.surname = dto.surname;
-    entity.primaryEmail = dto.primaryEmail;
     entity.localeCode = dto.localeCode;
     console.info(entity);
     return entity;
@@ -60,8 +64,8 @@ export class UserMapper {
     }
     user.name = data.name;
     user.surname = data.surname;
-    user.username = data.username;
-    user.primaryEmail = data.primaryEmail;
+    user.username = this.lowerCased(data.username);
+    user.primaryEmail = this.lowerCased(data.primaryEmail);
     user.gender = data.gender;
     user.city = data.city;
     user.district = data.district;
@@ -82,8 +86,8 @@ export class UserMapper {
     return {
       name: data.name,
       surname: data.surname,
-      username: data.username,
-      primaryEmail: data.primaryEmail,
+      username: this.lowerCased(data.username),
+      primaryEmail: this.lowerCased(data.primaryEmail),
       gender: data.gender,
       city: data.city,
       district: data.district,
@@ -103,10 +107,10 @@ export class UserMapper {
   static toAuthDto(ub?: User): UserDTO | null {
     if (ub == null) return null;
     return {
-      username: ub.username,
+      username: this.lowerCased(ub.username),
       name: ub.name,
       surname: ub.surname,
-      primaryEmail: ub.primaryEmail,
+      primaryEmail: this.lowerCased(ub.primaryEmail),
       active: ub.active,
       id: ub._id,
       suspended: ub.suspended,
@@ -117,11 +121,11 @@ export class UserMapper {
 
   static toAuthBackendDto(ub: User): UserAuthBackendDTO | null {
     return {
-      username: ub.username,
+      username: this.lowerCased(ub.username),
       roles: ub.roles,
       name: ub.name,
       surname: ub.surname,
-      primaryEmail: ub.primaryEmail,
+      primaryEmail: this.lowerCased(ub.primaryEmail),
       active: ub.active,
       id: ub._id,
       suspended: ub.suspended,
