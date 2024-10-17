@@ -7,6 +7,7 @@ import {
   UserCapabilityDTO,
 } from '@ubs-platform/users-common';
 import { Observable } from 'rxjs';
+import { EntityOwnershipSearch } from '../../../../users-common/src';
 
 @Injectable()
 export class EntityOwnershipService implements OnModuleInit {
@@ -31,6 +32,14 @@ export class EntityOwnershipService implements OnModuleInit {
 
   hasOwnership(eo: EntityOwnershipUserCheck): Observable<UserCapabilityDTO> {
     return this.userClient.send('check-ownership', eo);
+  }
+
+  searchOwnership(eo: EntityOwnershipSearch): Observable<EntityOwnershipDTO[]> {
+    return this.userClient.send('search-ownership', eo);
+  }
+
+  async deleteOwnership(oe: EntityOwnershipSearch) {
+    this.kafkaClient.emit('delete-ownership', oe);
   }
 
   // async findUserAuth(userId: any): Promise<UserDTO> {

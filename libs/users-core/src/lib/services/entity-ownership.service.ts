@@ -171,8 +171,18 @@ export class EntityOwnershipService {
     return this.mapper.toDto(entityOwnership);
   }
 
-  public async find(sk: EntityOwnershipSearch): Promise<EntityOwnershipDTO[]> {
+  public async search(
+    sk: EntityOwnershipSearch
+  ): Promise<EntityOwnershipDTO[]> {
     return (await this.findRaw(sk)).map((a) => this.mapper.toDto(a));
+  }
+
+  public async deleteOwnership(sk: EntityOwnershipSearch) {
+    await this.model.deleteOne({
+      entityGroup: sk.entityGroup,
+      entityId: sk.entityId,
+      entityName: sk.entityName,
+    });
   }
 
   private async findRaw(searchKeys: EntityOwnershipSearch) {

@@ -4,6 +4,7 @@ import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import {
   EntityOwnershipDTO,
   EntityOwnershipInsertCapabiltyDTO,
+  EntityOwnershipSearch,
   EntityOwnershipUserCheck,
 } from 'libs/users-common/src/lib/dto/entity-ownership-dto';
 
@@ -27,5 +28,15 @@ export class EntityOwnershipController {
   @MessagePattern('check-ownership')
   async hasOwnership(eo: EntityOwnershipUserCheck) {
     return await this.eoService.checkUser(eo);
+  }
+
+  @MessagePattern('search-ownership')
+  async searchOwnership(eo: EntityOwnershipSearch) {
+    return await this.eoService.search(eo);
+  }
+
+  @EventPattern('delete-ownership')
+  async deleteOwnership(eo: EntityOwnershipSearch) {
+    await this.eoService.deleteOwnership(eo);
   }
 }
