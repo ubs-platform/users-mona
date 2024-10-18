@@ -3,11 +3,11 @@ import { ClientProxy, ClientKafka, ClientRMQ } from '@nestjs/microservices';
 import {
   EntityOwnershipDTO,
   EntityOwnershipInsertCapabiltyDTO,
+  EntityOwnershipSearch,
   EntityOwnershipUserCheck,
   UserCapabilityDTO,
 } from '@ubs-platform/users-common';
 import { Observable } from 'rxjs';
-import { EntityOwnershipSearch } from '../../../../users-common/src';
 
 @Injectable()
 export class EntityOwnershipService implements OnModuleInit {
