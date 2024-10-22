@@ -1,1 +1,0 @@
-{"version":3,"file":"user-auth-status.model.js","sourceRoot":"","sources":["user-auth-status.model.ts"],"names":[],"mappings":";;;AAMA,MAAa,eAAe;IAC1B,YAAmB,KAAc;QAAd,UAAK,GAAL,KAAK,CAAS;QACjC,YAAO,GAAG,IAAI,CAAC;QACf,YAAO,GAAG,uBAAuB,CAAC;IAFE,CAAC;CAGtC;AAJD,0CAIC;AAED,MAAa,YAAY;IAAzB;QACE,YAAO,GAAG,KAAK,CAAC;QAChB,YAAO,GAAG,+BAA+B,CAAC;IAC5C,CAAC;CAAA;AAHD,oCAGC"}
