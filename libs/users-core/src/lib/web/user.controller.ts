@@ -13,7 +13,6 @@ import {
   Headers,
   UseInterceptors,
 } from '@nestjs/common';
-import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { UserService } from '../services/user.service';
 import { JwtAuthLocalGuard } from '../guard/jwt-local.guard';
 import { CurrentUser } from '../local-current-user-decorator';
