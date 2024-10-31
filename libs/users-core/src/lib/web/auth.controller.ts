@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth.service';
 import { Request } from 'express';
 import { UserAuth, UserAuthBackendDTO } from '@ubs-platform/users-common';
 import { matchRolesOrAdm } from '@ubs-platform/users-mona-roles';
+import { UserIntercept } from '../guard/user-intercept';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -43,8 +44,11 @@ export class AuthController {
   }
 
   @Post('/logout')
-  @UseGuards(JwtAuthLocalGuard)
-  async logout() {
+  @UseGuards(UserIntercept)
+  async logout(@CurrentUser() user: UserAuthBackendDTO) {
+    if (user) {
+      // cmon do something
+    }
     // cmon do something
   }
 }
