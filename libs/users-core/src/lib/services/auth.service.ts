@@ -19,7 +19,9 @@ export class AuthService {
     const jwt = request.headers.authorization
       .replace('Bearer ', '')
       .replace('bearer ', '');
-    const jwtDecoded = this.jwtService.decode(jwt);
+
+    const jwtDecoded = await this.jwtService.verifyAsync(jwt);
+
     const a = jwtDecoded['userId'];
     const ab = await this.userService.findUserAuth(a);
     if (ab.active) {
