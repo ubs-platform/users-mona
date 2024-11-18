@@ -107,7 +107,7 @@ export class EntityOwnershipService {
           if (role)
             return {
               userId: user._id,
-              capability: eouc.capability.toString(),
+              capability: eouc.capability?.toString(),
             };
         }
       }
