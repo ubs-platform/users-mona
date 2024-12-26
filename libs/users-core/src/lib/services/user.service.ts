@@ -90,7 +90,7 @@ export class UserService {
   }
 
   async sendPasswordChangedMail(u: User) {
-    this.sendEmail(u, 'Your password has been changed', 'ubs-pwreset-changed');
+    this.sendEmail(u, 'ubs-pwreset-changed-short', 'ubs-pwreset-changed');
   }
 
   async sendRegisteredEmail(u: User, key: string, origin = '') {
