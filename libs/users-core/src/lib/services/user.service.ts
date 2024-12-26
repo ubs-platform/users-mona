@@ -100,14 +100,9 @@ export class UserService {
         ':key',
         key
       );
-    this.sendEmail(
-      u,
-      'Welcome to Tetakent Applications',
-      'ubs-user-registered',
-      {
-        link,
-      }
-    );
+    this.sendEmail(u, 'ubs-user-registered-short', 'ubs-user-registered', {
+      link,
+    });
   }
 
   async sendEmail(
