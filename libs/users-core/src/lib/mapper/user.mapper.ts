@@ -11,7 +11,7 @@ import { CryptoOp } from '../util/crypto-op';
 
 export class UserMapper {
   static lowerCased(i?: string) {
-    return i?.toLowerCase();
+    return i?.toLowerCase().trim();
   }
 
   static async createFrom(u: User, user: UserCreateDTO): Promise<User> {
