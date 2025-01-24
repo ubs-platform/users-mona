@@ -55,6 +55,7 @@ export class UserMapper {
     entity.country = generaldto.country;
     entity.localeCode = generaldto.localeCode;
     entity.pronounce = generaldto.pronounce;
+    // username and id is passed
     return entity;
   }
 
@@ -147,6 +148,8 @@ export class UserMapper {
       state: ub.state,
       city: ub.city,
       country: ub.country,
+      username: ub.username,
+      id: ub._id,
     };
   }
 

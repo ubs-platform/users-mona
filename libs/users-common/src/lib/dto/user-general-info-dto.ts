@@ -10,4 +10,5 @@ export interface UserGeneralInfoDTO {
   city: string;
   district: string;
   localeCode: string;
+  username: string;
 }
