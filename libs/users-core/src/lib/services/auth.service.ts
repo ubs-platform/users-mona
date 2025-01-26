@@ -17,8 +17,8 @@ export class AuthService {
 
   async currentUserByJwtForFirstLogin(request: Request) {
     const jwt = request.headers.authorization
-      .replace('Bearer ', '')
-      .replace('bearer ', '');
+      ?.replace('Bearer ', '')
+      ?.replace('bearer ', '');
 
     const jwtDecoded = await this.jwtService.verifyAsync(jwt);
 
@@ -32,6 +32,7 @@ export class AuthService {
   }
 
   async authenticateUser(userLogin: UserAuth) {
+    console.info(userLogin)
     let realUser = await this.userService.findUserByLoginAndPw(userLogin);
     // const correspond = realUser.passwordEncyripted == passwdHashed;
     if (realUser) {
