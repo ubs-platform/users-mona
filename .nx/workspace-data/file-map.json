@@ -231,11 +231,11 @@
         },
         {
           "file": "libs/users-common/package-lock.json",
-          "hash": "8267016865524557822"
+          "hash": "5196831600466245364"
         },
         {
           "file": "libs/users-common/package.json",
-          "hash": "15061831796206384385",
+          "hash": "6606398723294330312",
           "deps": [
             "npm:typescript",
             "npm:@types/node",
@@ -387,11 +387,11 @@
         },
         {
           "file": "libs/roles/package-lock.json",
-          "hash": "1758804593802378936"
+          "hash": "606000510280879061"
         },
         {
           "file": "libs/roles/package.json",
-          "hash": "5463598161756048735",
+          "hash": "5832757481559298048",
           "deps": [
             "npm:@nestjs/common",
             "npm:@nestjs/core",
