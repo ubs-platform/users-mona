@@ -1,0 +1,777 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.4.0",
+  "pathMappings": {
+    "@ubs-platform/jwt-consts": [
+      "libs/jwt-consts/src/index.ts"
+    ],
+    "@ubs-platform/users-mona-core": [
+      "libs/users-core/src/index.ts"
+    ],
+    "@ubs-platform/users-common": [
+      "libs/users-common/src/index.ts"
+    ],
+    "@ubs-platform/users-mona-roles": [
+      "libs/roles/src/index.ts"
+    ],
+    "@ubs-platform/users-mona-microservice-helper": [
+      "libs/users-mona-microservice-helper/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/webpack/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview"
+      }
+    },
+    {
+      "name": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "name": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    }
+  ],
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": false
+    }
+  },
+  "fileMap": {
+    "nonProjectFiles": [],
+    "projectFileMap": {
+      "ubs-users": [
+        {
+          "file": "apps/ubs-users/.eslintrc.json",
+          "hash": "18038417758977449829"
+        },
+        {
+          "file": "apps/ubs-users/jest.config.ts",
+          "hash": "12741098487932303897"
+        },
+        {
+          "file": "apps/ubs-users/project.json",
+          "hash": "5992739735670656690"
+        },
+        {
+          "file": "apps/ubs-users/src/app/app.controller.spec.ts",
+          "hash": "11156443618385188612"
+        },
+        {
+          "file": "apps/ubs-users/src/app/app.controller.ts",
+          "hash": "9005150069945785676"
+        },
+        {
+          "file": "apps/ubs-users/src/app/app.module.ts",
+          "hash": "9597517845374282302"
+        },
+        {
+          "file": "apps/ubs-users/src/app/app.service.spec.ts",
+          "hash": "10601044450234745126"
+        },
+        {
+          "file": "apps/ubs-users/src/app/app.service.ts",
+          "hash": "1398463054208547248"
+        },
+        {
+          "file": "apps/ubs-users/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/ubs-users/src/main.ts",
+          "hash": "4694328140151004360"
+        },
+        {
+          "file": "apps/ubs-users/tsconfig.app.json",
+          "hash": "17628448778285850515"
+        },
+        {
+          "file": "apps/ubs-users/tsconfig.json",
+          "hash": "3490524966360018312"
+        },
+        {
+          "file": "apps/ubs-users/tsconfig.spec.json",
+          "hash": "11550347367511341917"
+        },
+        {
+          "file": "apps/ubs-users/webpack.config.js",
+          "hash": "1861104710972369410"
+        }
+      ],
+      "@ubs-platform/users-mona-microservice-helper": [
+        {
+          "file": "libs/users-mona-microservice-helper/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/.gitignore",
+          "hash": "3009140142791806673"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/.npmignore",
+          "hash": "5757530111306764031"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/README.md",
+          "hash": "7511795171538006532"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/jest.config.ts",
+          "hash": "13558974041156347241"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/package-lock.json",
+          "hash": "6030362937253961428"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/package.json",
+          "hash": "9190773126895421563",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/core",
+            "npm:@nestjs/jwt",
+            "npm:@nestjs/microservices",
+            "npm:@nestjs/mongoose",
+            "npm:@nestjs/passport",
+            "npm:@nestjs/platform-express",
+            "npm:@ubs-platform/nest-microservice-setup-util",
+            "npm:passport-jwt",
+            "npm:rxjs",
+            "npm:typescript",
+            "npm:@types/node",
+            "npm:tslib",
+            "npm:crypto-promise"
+          ]
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/index.ts",
+          "hash": "17609974298216815213"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/backend-jwt-utils-exports.module.ts",
+          "hash": "15003788326984793698"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/backend-jwt-utils.module.ts",
+          "hash": "18438185802679122301"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/current-user-decorator.ts",
+          "hash": "15172871593382719943"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/guards/jwt.guard.ts",
+          "hash": "5874272145245365993"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/guards/user-intercept.ts",
+          "hash": "5939916698785362586"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/service/entity-ownership.service.ts",
+          "hash": "799868954628393166"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/service/user.service.ts",
+          "hash": "4876319526490000607"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/strategies/jwt.strategy.ts",
+          "hash": "16959883229863831998"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/src/lib/utils/jwt-consts.ts",
+          "hash": "12549300625979781129"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/tsconfig.json",
+          "hash": "15459666941714123198"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/tsconfig.lib.json",
+          "hash": "3550173832616418300"
+        },
+        {
+          "file": "libs/users-mona-microservice-helper/tsconfig.spec.json",
+          "hash": "15045361163000427424"
+        }
+      ],
+      "@ubs-platform/users-common": [
+        {
+          "file": "libs/users-common/.eslintrc.json",
+          "hash": "8543533485919716500"
+        },
+        {
+          "file": "libs/users-common/.gitignore",
+          "hash": "3009140142791806673"
+        },
+        {
+          "file": "libs/users-common/.npmignore",
+          "hash": "5757530111306764031"
+        },
+        {
+          "file": "libs/users-common/LICENSE",
+          "hash": "5777323502401423537"
+        },
+        {
+          "file": "libs/users-common/README.md",
+          "hash": "15804930911921094087"
+        },
+        {
+          "file": "libs/users-common/jest.config.ts",
+          "hash": "3800868997630387241"
+        },
+        {
+          "file": "libs/users-common/package-lock.json",
+          "hash": "8267016865524557822"
+        },
+        {
+          "file": "libs/users-common/package.json",
+          "hash": "15061831796206384385",
+          "deps": [
+            "npm:typescript",
+            "npm:@types/node",
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "libs/users-common/src/index.d.ts",
+          "hash": "14039074910458299276"
+        },
+        {
+          "file": "libs/users-common/src/index.js",
+          "hash": "7179263012172987905"
+        },
+        {
+          "file": "libs/users-common/src/index.js.map",
+          "hash": "9883800132271319225"
+        },
+        {
+          "file": "libs/users-common/src/index.ts",
+          "hash": "14039074910458299276"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/entity-ownership-dto.ts",
+          "hash": "17191266711746613819"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/error-consts.ts",
+          "hash": "12797552200104139564"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/error-informations.ts",
+          "hash": "13188752302957177380"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/index.ts",
+          "hash": "1052807806697787160"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/password-change-dto.ts",
+          "hash": "6942017288114424719"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-admin-dto.ts",
+          "hash": "13204674666866569990"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-auth-status.model.ts",
+          "hash": "17791158921796574259"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-auth.model.ts",
+          "hash": "2102763245441664958"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-create-dto.ts",
+          "hash": "9478947513283524568"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-dto.ts",
+          "hash": "3333977831677841227"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-full-dto.ts",
+          "hash": "12764298760801445194"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-general-info-dto.ts",
+          "hash": "103904999876685711"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-minimalized.dto.ts",
+          "hash": "3280948333606333875"
+        },
+        {
+          "file": "libs/users-common/src/lib/dto/user-register.model.ts",
+          "hash": "11967100769371305633"
+        },
+        {
+          "file": "libs/users-common/tsconfig.json",
+          "hash": "15885261154100728701"
+        },
+        {
+          "file": "libs/users-common/tsconfig.lib.json",
+          "hash": "18155349116525859334"
+        },
+        {
+          "file": "libs/users-common/tsconfig.spec.json",
+          "hash": "11550347367511341917"
+        }
+      ],
+      "jwt-consts": [
+        {
+          "file": "libs/jwt-consts/.eslintrc.json",
+          "hash": "8543533485919716500"
+        },
+        {
+          "file": "libs/jwt-consts/README.md",
+          "hash": "14856608141443538644"
+        },
+        {
+          "file": "libs/jwt-consts/package.json",
+          "hash": "3769463455499618250",
+          "deps": [
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "libs/jwt-consts/project.json",
+          "hash": "10018278784241864141"
+        },
+        {
+          "file": "libs/jwt-consts/src/index.ts",
+          "hash": "16332155702477121848"
+        },
+        {
+          "file": "libs/jwt-consts/src/lib/jwt-consts.ts",
+          "hash": "8821424132257099320"
+        },
+        {
+          "file": "libs/jwt-consts/tsconfig.json",
+          "hash": "634795086719220447"
+        },
+        {
+          "file": "libs/jwt-consts/tsconfig.lib.json",
+          "hash": "18155349116525859334"
+        }
+      ],
+      "@ubs-platform/users-mona-roles": [
+        {
+          "file": "libs/roles/.eslintrc.json",
+          "hash": "942885824144343268"
+        },
+        {
+          "file": "libs/roles/.gitignore",
+          "hash": "3009140142791806673"
+        },
+        {
+          "file": "libs/roles/.npmignore",
+          "hash": "5757530111306764031"
+        },
+        {
+          "file": "libs/roles/README.md",
+          "hash": "15337303609097765665"
+        },
+        {
+          "file": "libs/roles/jest.config.ts",
+          "hash": "13558974041156347241"
+        },
+        {
+          "file": "libs/roles/package-lock.json",
+          "hash": "1758804593802378936"
+        },
+        {
+          "file": "libs/roles/package.json",
+          "hash": "5463598161756048735",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/core",
+            "npm:typescript",
+            "npm:@types/node",
+            "npm:tslib",
+            "npm:crypto-promise"
+          ]
+        },
+        {
+          "file": "libs/roles/src/index.ts",
+          "hash": "4725137746293683397"
+        },
+        {
+          "file": "libs/roles/src/lib/backend-global-ubs-roles.module.ts",
+          "hash": "10338736931911586012"
+        },
+        {
+          "file": "libs/roles/src/lib/decorator/roles.decorator.ts",
+          "hash": "7787172945729192227"
+        },
+        {
+          "file": "libs/roles/src/lib/guards/role-guard.guard.ts",
+          "hash": "575752152606015728"
+        },
+        {
+          "file": "libs/roles/src/lib/match-role.ts",
+          "hash": "12514712240936252066"
+        },
+        {
+          "file": "libs/roles/tsconfig.json",
+          "hash": "15459666941714123198"
+        },
+        {
+          "file": "libs/roles/tsconfig.lib.json",
+          "hash": "3550173832616418300"
+        }
+      ],
+      "users-core": [
+        {
+          "file": "libs/users-core/.eslintrc.json",
+          "hash": "8543533485919716500"
+        },
+        {
+          "file": "libs/users-core/README.md",
+          "hash": "8275771784084429129"
+        },
+        {
+          "file": "libs/users-core/jest.config.ts",
+          "hash": "6389928807268490980"
+        },
+        {
+          "file": "libs/users-core/package.json",
+          "hash": "17049987645335778495",
+          "deps": [
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "libs/users-core/project.json",
+          "hash": "17940129744307683606"
+        },
+        {
+          "file": "libs/users-core/src/index.ts",
+          "hash": "1844533277866601558"
+        },
+        {
+          "file": "libs/users-core/src/lib/domain/email-change-request.schema.ts",
+          "hash": "11625417000181755539"
+        },
+        {
+          "file": "libs/users-core/src/lib/domain/entity-ownership.schema.ts",
+          "hash": "11927849278068402385"
+        },
+        {
+          "file": "libs/users-core/src/lib/domain/pw-reset-request.schema.ts",
+          "hash": "1342327832851031385"
+        },
+        {
+          "file": "libs/users-core/src/lib/domain/user.model.ts",
+          "hash": "14570173828257174597"
+        },
+        {
+          "file": "libs/users-core/src/lib/dto/email.dto.ts",
+          "hash": "3286854589068654090"
+        },
+        {
+          "file": "libs/users-core/src/lib/guard/jwt-local.guard.ts",
+          "hash": "7201420204097998260"
+        },
+        {
+          "file": "libs/users-core/src/lib/guard/user-intercept.ts",
+          "hash": "5939916698785362586"
+        },
+        {
+          "file": "libs/users-core/src/lib/local-current-user-decorator.ts",
+          "hash": "12119044452615290464"
+        },
+        {
+          "file": "libs/users-core/src/lib/mapper/entity-ownership.mapper.ts",
+          "hash": "2205079801887887409"
+        },
+        {
+          "file": "libs/users-core/src/lib/mapper/user.mapper.ts",
+          "hash": "1293491782021312359"
+        },
+        {
+          "file": "libs/users-core/src/lib/services/auth.service.ts",
+          "hash": "18331465088871679853"
+        },
+        {
+          "file": "libs/users-core/src/lib/services/email-change-request.service.ts",
+          "hash": "9322463802377480687"
+        },
+        {
+          "file": "libs/users-core/src/lib/services/email.service.ts",
+          "hash": "2097038629827054686"
+        },
+        {
+          "file": "libs/users-core/src/lib/services/entity-ownership.service.ts",
+          "hash": "15985557990634257008"
+        },
+        {
+          "file": "libs/users-core/src/lib/services/password-reset.service.ts",
+          "hash": "10543818875409456114"
+        },
+        {
+          "file": "libs/users-core/src/lib/services/user.service.ts",
+          "hash": "598767883339794897"
+        },
+        {
+          "file": "libs/users-core/src/lib/strategies/jwt-local-strategy.ts",
+          "hash": "12153157520949332114"
+        },
+        {
+          "file": "libs/users-core/src/lib/ubs-users.module.ts",
+          "hash": "4816050640816505634"
+        },
+        {
+          "file": "libs/users-core/src/lib/util/crypto-op.ts",
+          "hash": "1867740717734442529"
+        },
+        {
+          "file": "libs/users-core/src/lib/web/auth.controller.ts",
+          "hash": "359361090632081031"
+        },
+        {
+          "file": "libs/users-core/src/lib/web/entity-ownership.controller.ts",
+          "hash": "4863669432043626991"
+        },
+        {
+          "file": "libs/users-core/src/lib/web/password-reset.controller.ts",
+          "hash": "1364992109896758215"
+        },
+        {
+          "file": "libs/users-core/src/lib/web/user-admin.controller.ts",
+          "hash": "17642710332351224175"
+        },
+        {
+          "file": "libs/users-core/src/lib/web/user-microservice.controller.ts",
+          "hash": "15455696113369848144"
+        },
+        {
+          "file": "libs/users-core/src/lib/web/user.controller.ts",
+          "hash": "1641260520626147085"
+        },
+        {
+          "file": "libs/users-core/tsconfig.json",
+          "hash": "8140808443178664345"
+        },
+        {
+          "file": "libs/users-core/tsconfig.lib.json",
+          "hash": "751480267944062859"
+        },
+        {
+          "file": "libs/users-core/tsconfig.spec.json",
+          "hash": "11550347367511341917"
+        }
+      ],
+      "@ubs-users/source": [
+        {
+          "file": ".editorconfig",
+          "hash": "5443105041930014821"
+        },
+        {
+          "file": ".env",
+          "hash": "18022497164191219665"
+        },
+        {
+          "file": ".eslintignore",
+          "hash": "7663861978715868291"
+        },
+        {
+          "file": ".eslintrc.base.json",
+          "hash": "18315524891129148814"
+        },
+        {
+          "file": ".eslintrc.json",
+          "hash": "7029599071157348715"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "16877376182141465221"
+        },
+        {
+          "file": ".hcgrt-temp.json",
+          "hash": "6313288872269323634"
+        },
+        {
+          "file": ".npmignore",
+          "hash": "5757530111306764031"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "16448050467312557263"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "16267754514737964994"
+        },
+        {
+          "file": ".verdaccio/config.yml",
+          "hash": "14993594506392938393"
+        },
+        {
+          "file": ".vscode/extensions.json",
+          "hash": "4934098906304722861"
+        },
+        {
+          "file": "Dockerfile",
+          "hash": "4945560744432127780"
+        },
+        {
+          "file": "README.md",
+          "hash": "7489405347645003591"
+        },
+        {
+          "file": "README_OLD.md",
+          "hash": "9038441637492413064"
+        },
+        {
+          "file": "infrastructure/docker-compose.yml",
+          "hash": "9733687808025180466"
+        },
+        {
+          "file": "jest.config.ts",
+          "hash": "8278665120952369726"
+        },
+        {
+          "file": "jest.preset.js",
+          "hash": "4185368808439573122"
+        },
+        {
+          "file": "nx.json",
+          "hash": "18243974773593210815"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "7396663024367176407"
+        },
+        {
+          "file": "package.json",
+          "hash": "13976279120292493763",
+          "deps": [
+            "npm:@nestjs/schematics",
+            "npm:@nestjs/testing",
+            "npm:@nx/eslint",
+            "npm:@nx/eslint-plugin",
+            "npm:@nx/jest",
+            "npm:@nx/js",
+            "npm:@nx/nest",
+            "npm:@nx/node",
+            "npm:@nx/web",
+            "npm:@nx/webpack",
+            "npm:@nx/workspace",
+            "npm:@swc-node/register",
+            "npm:@swc/core",
+            "npm:@swc/helpers",
+            "npm:@types/jest",
+            "npm:@types/node",
+            "npm:@types/passport-jwt",
+            "npm:@typescript-eslint/eslint-plugin",
+            "npm:@typescript-eslint/parser",
+            "npm:eslint",
+            "npm:eslint-config-prettier",
+            "npm:eslint-plugin-cypress",
+            "npm:eslint-plugin-storybook",
+            "npm:jest",
+            "npm:jest-environment-node",
+            "npm:nx",
+            "npm:prettier",
+            "npm:ts-jest",
+            "npm:ts-node",
+            "npm:typescript",
+            "npm:verdaccio",
+            "npm:webpack-cli",
+            "npm:@nestjs/common",
+            "npm:@nestjs/core",
+            "npm:@nestjs/jwt",
+            "npm:@nestjs/microservices",
+            "npm:@nestjs/mongoose",
+            "npm:@nestjs/passport",
+            "npm:@nestjs/platform-express",
+            "npm:@nestjs/serve-static",
+            "npm:@ubs-platform/nest-microservice-setup-util",
+            "npm:axios",
+            "npm:crypto-promise",
+            "npm:kafkajs",
+            "npm:mongoose",
+            "npm:passport",
+            "npm:passport-jwt",
+            "npm:passport-local",
+            "npm:reflect-metadata",
+            "npm:rxjs",
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "project.json",
+          "hash": "9953075096864286872"
+        },
+        {
+          "file": "release-tool.sh",
+          "hash": "7026252044257423777"
+        },
+        {
+          "file": "tools/scripts/publish.mjs",
+          "hash": "8455829797866792111"
+        },
+        {
+          "file": "tsconfig.base.json",
+          "hash": "10601243022118812183"
+        },
+        {
+          "file": "ubs-mona-release.sh",
+          "hash": "14238721727010493393"
+        },
+        {
+          "file": "ubs-users-run.sh",
+          "hash": "14622865594473557348"
+        }
+      ],
+      "ubs-users-e2e": [
+        {
+          "file": "apps/ubs-users-e2e/.eslintrc.json",
+          "hash": "18038417758977449829"
+        },
+        {
+          "file": "apps/ubs-users-e2e/jest.config.ts",
+          "hash": "2349548978605106613"
+        },
+        {
+          "file": "apps/ubs-users-e2e/project.json",
+          "hash": "2073088637818566037"
+        },
+        {
+          "file": "apps/ubs-users-e2e/src/support/global-setup.ts",
+          "hash": "14688124112638150235"
+        },
+        {
+          "file": "apps/ubs-users-e2e/src/support/global-teardown.ts",
+          "hash": "10856769668484651558"
+        },
+        {
+          "file": "apps/ubs-users-e2e/src/support/test-setup.ts",
+          "hash": "9379448616442792630"
+        },
+        {
+          "file": "apps/ubs-users-e2e/src/ubs-users/ubs-users.spec.ts",
+          "hash": "4747019362565984448"
+        },
+        {
+          "file": "apps/ubs-users-e2e/tsconfig.json",
+          "hash": "15443990093475294480"
+        },
+        {
+          "file": "apps/ubs-users-e2e/tsconfig.spec.json",
+          "hash": "14519349202314136898"
+        }
+      ]
+    }
+  }
+}

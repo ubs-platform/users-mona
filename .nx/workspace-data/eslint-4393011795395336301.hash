@@ -1,4 +1,5 @@
 {
+  "12839534570754442766": {},
   "5079219287114650158": {
     "apps/ubs-users": {
       "targets": {
@@ -251,5 +252,48 @@
       }
     }
   },
-  "17358981338227730310": {}
+  "11008961190799753522": {},
+  "2932630248604409167": {
+    "libs/users-mona-microservice-helper": {
+      "targets": {
+        "lint": {
+          "command": "eslint .",
+          "cache": true,
+          "options": {
+            "cwd": "libs/users-mona-microservice-helper"
+          },
+          "inputs": [
+            "default",
+            "^default",
+            "{workspaceRoot}/.eslintrc.base.json",
+            "{projectRoot}/.eslintrc.json",
+            "{workspaceRoot}/tools/eslint-rules/**/*",
+            {
+              "externalDependencies": [
+                "eslint"
+              ]
+            }
+          ],
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "metadata": {
+            "technologies": [
+              "eslint"
+            ],
+            "description": "Runs ESLint on project",
+            "help": {
+              "command": "npx eslint --help",
+              "example": {
+                "options": {
+                  "max-warnings": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "17706153829913222943": {}
 }
