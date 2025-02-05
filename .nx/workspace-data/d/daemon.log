@@ -1,0 +1,16 @@
+Debugger listening on ws://127.0.0.1:34317/3504d13b-4dce-4adb-a5bf-063aa58e6e8e
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+[NX Daemon Server] - 2025-02-05T16:59:28.255Z - Started listening on: /tmp/a9c1b17a0b0f6f171682/d.sock
+[NX Daemon Server] - 2025-02-05T16:59:28.257Z - [WATCHER]: Subscribed to changes within: /home/huseyin/Belgeler/dev/tk/lotus-ubs/ubs-users (native)
+[NX Daemon Server] - 2025-02-05T16:59:28.264Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-02-05T16:59:28.265Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2025-02-05T16:59:28.267Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-02-05T16:59:28.269Z - [REQUEST]: Responding to the client. Shutdown initiated
+[NX Daemon Server] - 2025-02-05T16:59:28.269Z - Done responding to the client Shutdown initiated
+[NX Daemon Server] - 2025-02-05T16:59:28.269Z - Handled FORCE_SHUTDOWN. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2025-02-05T16:59:28.270Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2025-02-05T16:59:28.270Z - [WATCHER]: Stopping the watcher for /home/huseyin/Belgeler/dev/tk/lotus-ubs/ubs-users (sources)
+[NX Daemon Server] - 2025-02-05T16:59:28.271Z - [WATCHER]: Stopping the watcher for /home/huseyin/Belgeler/dev/tk/lotus-ubs/ubs-users (outputs)
+[NX Daemon Server] - 2025-02-05T16:59:28.271Z - Server stopped because: "Request to shutdown"
+Waiting for the debugger to disconnect...
