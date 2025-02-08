@@ -12,7 +12,7 @@ import { Request } from 'express';
 export class AuthService {
   constructor(
     private userService: UserService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async currentUserByJwtForFirstLogin(request: Request) {
@@ -32,7 +32,6 @@ export class AuthService {
   }
 
   async authenticateUser(userLogin: UserAuth) {
-    console.info(userLogin)
     let realUser = await this.userService.findUserByLoginAndPw(userLogin);
     // const correspond = realUser.passwordEncyripted == passwdHashed;
     if (realUser) {
@@ -44,7 +43,7 @@ export class AuthService {
     } else {
       throw new ErrorInformations(
         UBSUsersErrorConsts.AUTHENTICATION_FAIL,
-        'User is not found or password does not match'
+        'User is not found or password does not match',
       );
     }
   }
